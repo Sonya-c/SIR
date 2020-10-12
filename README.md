@@ -1,2 +1,6 @@
 # SIR
-Simulador del movimiento oscilatorio.
+Simulador Interactivo de Resorte.
+
+## Manual de usuario.
+
+## Manual del sistema.

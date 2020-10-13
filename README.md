@@ -5,9 +5,8 @@ Simulador Interactivo de Resorte.
 
 ## Manual del sistema.
 
-###Funcionamiento de la interfaz
+### Funcionamiento de la interfaz
 
-###Solución fisica de las ecuaciones
+### Solución fisica de las ecuaciones
 
-###Proceso de la animación
-
+### Proceso de la animación

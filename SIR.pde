@@ -10,7 +10,7 @@ color dark = #222831;
 
 String movimiento = new String();
 boolean music = true;
-int ScreenId = 1;
+int ScreenId = 0;
 
 float x0, vo, m, k, b, f, w0, w, A0, A, t, y, desfase, landa1, landa2, c1, c2;
 float e = 2.71828;
@@ -18,7 +18,6 @@ float e = 2.71828;
 PImage icon;
 PImage welcome;
 PImage scream0;
-
 
 AudioPlayer AcousticCampfireGuitar;
 AudioPlayer AcousticHappyFolk;
@@ -48,7 +47,6 @@ void setup() {
   
   icon = loadImage("Imagenes/Icon.png");
   surface.setIcon(icon);
-  
   scream0 = loadImage("Imagenes/Initial_Data.png");
   welcome = loadImage("Imagenes/Welcome.png");
 
@@ -85,11 +83,11 @@ float trans = 255;
 void draw() {
   background(34, 40, 49);
   
-  if (millis() < 10000 && trans >= 0) {
-    tint(255, trans);
-    image(welcome, 0, 0, width, height);
-    trans -= 1;    
-  } else {
+  //if (millis() < 10000 && trans >= 0) {
+  //  tint(255, trans);
+  //  image(welcome, 0, 0, width, height);
+  //  trans -= 1;    
+  //} else {
     tint(255, 255);
     switch(ScreenId) {
     case 0: 
@@ -104,22 +102,6 @@ void draw() {
       background(34, 40, 49);
       howToUse(); 
       break;
-    }
-  }
-}
-
-//FUNCIONES ADICIONALES
-void tip(float x1, float y1, float x2, float y2, String text, int nLines) {
-  cursor(HAND);
-  noStroke();
-  textSize(12);
-  textLeading(13);
-  textAlign(LEFT);
-  float w = textWidth(text);
-  if ((mouseX > x1) && (mouseY > y1) && (mouseX < x2 + x1) && (mouseY < y2 + y1)) {
-    fill(248, 75, 91);
-    rect(mouseX + 20, mouseY, w + 20, 16*nLines);
-    fill(224, 236, 228);
-    text(text, mouseX + 30, mouseY, w + 20, 15*nLines);
+    //}
   }
 }

@@ -1,7 +1,27 @@
 
 void inicio() {
+  noStroke();
   cursor(ARROW);
   image(scream0, 0, 0, 1000, 580);
+  
+  fill(dark);
+  textSize(15);
+  textAlign(CENTER);
+  text("masa", 685, 120);
+  text("constante elastica", 685, 190);
+  text("Posición inicial", 685, 260);
+  text("Velocidad angular inicial", 685, 330);
+  text("Constante de amortiguamiento", 685, 400);
+  text("Fuerza", 685, 470);
+  
+  //estos cuadros solo son de guia
+  fill(blue);
+  rect(500, 125, 383, 40);
+  rect(500, 195, 383, 40);
+  rect(500, 265, 383, 40);
+  rect(500, 335, 383, 40);
+  rect(500, 405, 383, 40);
+  rect(500, 475, 383, 40);
 }
 
 void howToUse() {

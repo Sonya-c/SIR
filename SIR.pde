@@ -5,7 +5,7 @@ Minim minim;
 color white = #ffffff;
 color gris = #e0ece4;
 color pink = #ff4b5c;
-color azul = #32e0c4;
+color blue = #32e0c4;
 color dark = #222831;
 
 String movimiento = new String();
@@ -14,6 +14,11 @@ int ScreenId = 1;
 
 float x0, vo, m, k, b, f, w0, w, A0, A, t, y, desfase, landa1, landa2, c1, c2;
 float e = 2.71828;
+
+PImage icon;
+PImage welcome;
+PImage scream0;
+
 
 AudioPlayer AcousticCampfireGuitar;
 AudioPlayer AcousticHappyFolk;
@@ -37,10 +42,15 @@ AudioPlayer VideoGame21;
 AudioPlayer VideoGame45;
 AudioPlayer VideoGame51;
 
-
 void setup() {
   noCursor();
   size(1000, 580);
+  
+  icon = loadImage("Imagenes/Icon.png");
+  surface.setIcon(icon);
+  
+  scream0 = loadImage("Imagenes/Initial_Data.png");
+  welcome = loadImage("Imagenes/Welcome.png");
 
   minim = new Minim(this);
   AcousticCampfireGuitar = minim.loadFile("Musica/AcousticCampfireGuitar.mp3");
@@ -69,37 +79,36 @@ void setup() {
 /* PANTALLA
  * inicio ScreenId = 0
  * processing ScreenId = 1
- * analyzing ScreenId = 2
- * howToUse ScreenId = 3
- * waiting ScreenId = 4
+ * howToUse ScreenId = 2
  */
-
+float trans = 255;
 void draw() {
   background(34, 40, 49);
-  //INTERFAZ
-  switch(ScreenId) {
-  case 0: 
-    background(34, 40, 49);
-    inicio(); 
-    break;
-  case 1: 
-    background(34, 40, 49);
-    processing(); 
-    break;
-  case 2: 
-    background(34, 40, 49);
-    analyzing(); 
-    break;
-  case 3: 
-    background(34, 40, 49);
-    howToUse(); 
-    break;
+  
+  if (millis() < 10000 && trans >= 0) {
+    tint(255, trans);
+    image(welcome, 0, 0, width, height);
+    trans -= 1;    
+  } else {
+    tint(255, 255);
+    switch(ScreenId) {
+    case 0: 
+      background(34, 40, 49);
+      inicio(); 
+      break;
+    case 1: 
+      background(34, 40, 49);
+      processing(); 
+      break;
+    case 2: 
+      background(34, 40, 49);
+      howToUse(); 
+      break;
+    }
   }
 }
 
-
 //FUNCIONES ADICIONALES
-
 void tip(float x1, float y1, float x2, float y2, String text, int nLines) {
   cursor(HAND);
   noStroke();

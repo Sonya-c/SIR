@@ -1,5 +1,11 @@
 
 void inicio() {
+  cursor(ARROW);
+  image(scream0, 0, 0, 1000, 580);
+}
+
+void howToUse() {
+
 }
 
 void processing() {
@@ -8,7 +14,6 @@ void processing() {
   noStroke();
   fill(white);
   rect(0, 0, 1000, 25);
-  
   fill(dark);
   textSize(12);
   textAlign(CENTER);
@@ -21,18 +26,18 @@ void processing() {
   //--->ZONAS ACTIVAS<---//
   if (mouseX > 5 && mouseY > 0 && mouseX < 100 && mouseY < 25) {
     cursor(HAND);
-    fill(azul, 50);
+    fill(blue, 50);
     rect( 0, 0, 100, 25);
     if (mousePressed) {
       ScreenId = 0;
     }
   } else if (mouseX > 100 && mouseY > 0 && mouseX < 200 && mouseY < 25) {
     cursor(HAND);
-    fill(azul, 50);
+    fill(blue, 50);
     rect( 100, 0, 100, 25);
   } else if (mouseX > 200 && mouseY > 0 && mouseX < 300 && mouseY < 25) {
     cursor(HAND);
-    fill(azul, 50);
+    fill(blue, 50);
     rect( 200, 0, 100, 25);
     if (mousePressed) {
       fill(white);
@@ -41,7 +46,7 @@ void processing() {
     }
   } else if (mouseX > 300 && mouseY > 0 && mouseX < 400 && mouseY < 25) {
     cursor(HAND);
-    fill(azul, 50);
+    fill(blue, 50);
     rect( 300, 0, 100, 25);
   } else if (mouseX > 400 && mouseY > 0 && mouseX < 500 && mouseY < 25) {
     cursor(HAND);
@@ -50,10 +55,4 @@ void processing() {
   } else {
     cursor(ARROW);
   }
-}
-
-void analyzing() {
-}
-
-void howToUse() {
 }

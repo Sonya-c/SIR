@@ -8,16 +8,34 @@ color pink = #ff4b5c;
 color blue = #32e0c4;
 color dark = #222831;
 
-String movimiento = new String();
+String movimiento = new String("tipo de movimiento");
 boolean music = true;
-int ScreenId = 0;
 
-float x0, vo, m, k, b, f, w0, w, A0, A, t, y, desfase, landa1, landa2, c1, c2;
+int ScreenId = 0; //esta variabe indica el id de la pantalla (inicialmente sera la pantalla de inicio)
+int beforeScreen = 0; //esta variable nos permitira regresar a la ppantalla anterior
+/* PANTALLA
+ * inicio ScreenId = 0
+ * processing ScreenId = 1
+ * howToUse ScreenId = 2
+ */
+
+float x0, vo, m, k, b, f, w0, w, A0, A, t, y, desfase, landa1, landa2, c1, c2; //todas estas variables estan relacionadas al procedimiento
 float e = 2.71828;
+float spin = 0.5;
 
 PImage icon;
 PImage welcome;
 PImage scream0;
+PImage scream1;
+PImage help;
+PImage izq;
+PImage der;
+PImage help_buttom;
+PImage musicOn;
+PImage musicOff;
+PImage masa;
+PImage resorte;
+
 
 AudioPlayer AcousticCampfireGuitar;
 AudioPlayer AcousticHappyFolk;
@@ -45,11 +63,24 @@ void setup() {
   noCursor();
   size(1000, 580);
   
+  //Cambiar el icono de la ventana
   icon = loadImage("Imagenes/Icon.png");
   surface.setIcon(icon);
+  
+  //cargar las imagenes
   scream0 = loadImage("Imagenes/Initial_Data.png");
   welcome = loadImage("Imagenes/Welcome.png");
-
+  izq = loadImage("Imagenes/izq.png");
+  der = loadImage("Imagenes/der.png");
+  help_buttom = loadImage("Imagenes/help.png");
+  help = loadImage("Imagenes/HowToUse.png");
+  musicOn = loadImage("Imagenes/musicOn.png");
+  musicOff = loadImage("Imagenes/musicOff.png");
+  scream1 = loadImage("Imagenes/proceso.png");
+  masa = loadImage("Imagenes/masa.png");
+  resorte = loadImage("Imagenes/resorte.png");
+  
+  //Cargar la musica
   minim = new Minim(this);
   AcousticCampfireGuitar = minim.loadFile("Musica/AcousticCampfireGuitar.mp3");
   AcousticHappyFolk = minim.loadFile("Musica/AcousticHappyFolk.mp3");
@@ -72,22 +103,21 @@ void setup() {
   VideoGame21 = minim.loadFile("Musica/VideoGame21.mp3");
   VideoGame45 = minim.loadFile("Musica/VideoGame45.mp3");
   VideoGame51 = minim.loadFile("Musica/VideoGame51.mp3");
+
 }
 
-/* PANTALLA
- * inicio ScreenId = 0
- * processing ScreenId = 1
- * howToUse ScreenId = 2
- */
 float trans = 255;
 void draw() {
-  background(34, 40, 49);
+  //println(millis());
   
-  //if (millis() < 10000 && trans >= 0) {
-  //  tint(255, trans);
-  //  image(welcome, 0, 0, width, height);
-  //  trans -= 1;    
-  //} else {
+  //pantalla de bienvenida
+  if (millis() < 10000 && trans >= 0) {
+    background(dark);
+    tint(255, trans);
+    image(welcome, 0, 0, width, height);
+    trans -= 1; 
+    
+  } else {
     tint(255, 255);
     switch(ScreenId) {
     case 0: 
@@ -102,6 +132,6 @@ void draw() {
       background(34, 40, 49);
       howToUse(); 
       break;
-    //}
-  }
+    }
+ }
 }

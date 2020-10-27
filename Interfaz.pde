@@ -1,40 +1,39 @@
 
-//PANTALLA DE INICIO: En esta pantalla se dara la toma de datos//
-boolean can;
 void inicio() {
   noStroke();
-  can = m != 0 && k != 0 && w0 != 0; //la variable can determina si ya se puede saltar a la siguiente pestaña, es decir, si ya se han dijitado los datos necesarios
+  boolean can = m != 0 && k != 0;
+  //la variable can determina si ya se puede saltar a la siguiente pestaña, es decir, si ya se han dijitado los datos necesarios
+
   image(scream0, 0, 0, 1000, 580); 
   image(help_buttom, 140, 25, 40, 40);
-  if (music) {
+  if (music)
     image(musicOn, 180, 25, 40, 40);
-  } else {
+  else
     image(musicOff, 180, 25, 40, 40);
-  }
 
   //Boton para pasar a la siguiente pestaña
   if (can)
-    fill(blue); //Si la variable can (vease linea 6) es verdadera, ya se podra pasar 
+    fill(blue); 
   else 
   fill(gris); 
-
   rect(627.6, 530, 127.6, 40, 7);
 
-  //TITULOS, estos son los titulos de las variables de entrada
+  //TITULOS
   fill(dark);
   textSize(15);
   textAlign(CENTER, CENTER);
-  text("Empezar", 627.6, 530, 127.6, 40); //este correspone al boton de empezar (vease linea 12)
+  text("Empezar", 627.6, 530, 127.6, 40);
+
   textAlign(CENTER);
   text("Masa", 685, 120);
   text("Constante Elastica", 685, 190);
   text("Posición Inicial", 685, 260);
-  text("Velocidad Angular Inicial", 685, 330);
+  text("Velocidad Inicial", 685, 330);
   text("Constante de Amortiguamiento", 685, 400);
   text("Fuerza", 685, 470);
 
-  //CUADRO DE VALORES// En estos cuadros se mostraran los valores de las variables que indican los titulos (vease linea 18)
-  fill(white); //primero se dibuja un cuadro blanco (para que los valores destaquen del fondo)
+  //CUADRO DE VALORES//
+  fill(white); //primero se dibuja un cuadro blanco
   rect(627.6, 125, 127.6, 40);
   rect(627.6, 195, 127.6, 40);
   rect(627.6, 265, 127.6, 40);
@@ -90,12 +89,16 @@ void inicio() {
   } else if (mouseX > 587.6 && mouseY > 125 && mouseX < 627.6 && mouseY < 125 + 40) {
     cursor(HAND);
     if (mousePressed) {
-      m -= spin;
+      if (m - spin > 0) {
+        m -= spin;
+      }
     }
   } else if (mouseX > 587.6 && mouseY > 195 && mouseX < 587.6 + 40 && mouseY < 195 + 40) {
     cursor(HAND);
     if (mousePressed) {
-      k -= spin;
+      if (k - spin > 0) {
+        k -= spin;
+      }
     }
   } else if (mouseX > 587.6 && mouseY > 265 && mouseX < 587.6 + 40 && mouseY < 265 + 40) {
     cursor(HAND);
@@ -155,6 +158,7 @@ void inicio() {
 void howToUse() {
   image(help, 0, 0, 1000, 580);
   image(izq, 380, 20, 40, 40);
+
   //BOTONES
   fill(pink);
   rect(600, 30, 75, 25, 7); //Este corresponde al boton de ir al sitio web
@@ -185,29 +189,30 @@ void processing() {
   image(scream1, 0, 0, 1000, 580);
   image(izq, 20, 5, 40, 40);
   image(help_buttom, 65, 5, 40, 40);
-  if (music) {
+  if (music)
     image(musicOn, 105, 5, 40, 40);
-  } else {
+  else
     image(musicOff, 105, 5, 40, 40);
-  }
+
   image(masa, 85, 170, 80, 80);
-  image(resorte, 100, 90, 40,100);
+  image(resorte, 100, 90, 40, 100);
   
-  textAlign(CENTER, CENTER);
-  textSize(12);
   fill(dark);
+  textSize(12);
+  textAlign(CENTER, CENTER);
   text(""+m, 850, 90, 115, 30);
-  text(""+k,850, 90 + 50, 115, 30);
-  text(""+x0,850, 90 + 2*50, 115, 30);
-  text(""+w0,850, 90 + 3*50, 115, 30);
+  text(""+k, 850, 90 + 50, 115, 30);
+  text(""+x0, 850, 90 + 2*50, 115, 30);
+  text(""+v0, 850, 90 + 3*50, 115, 30);
   text(""+b, 850, 90 + 4*50, 115, 30);
   text(""+f, 850, 90 + 5*50, 115, 30);
-  text(""+w,850, 90 + 6*50, 115, 30);
-  text(""+A,850, 90 + 7*50, 115, 30);
-  text(""+desfase,850, 90 + 8*50, 115, 30);
+  text(""+w, 850, 90 + 6*50, 115, 30);
+  text(""+A, 850, 90 + 7*50, 115, 30);
+  text(""+desfase, 850, 90 + 8*50, 115, 30);
+
   fill(white);
-  textAlign(CENTER, CENTER);
   textSize(20);
+  textAlign(CENTER, CENTER);
   text(movimiento, 500, 20);
 
   //--->ZONAS ACTIVAS<---//

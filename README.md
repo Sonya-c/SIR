@@ -1,13 +1,9 @@
 # SIR
-Simulador Interactivo de Resorte.
+Simulador Interactivo de Resorte. Este proyecto desarrolla en processing un simulador del movimiento oscilatorio de un sistema masa-resorte. Para ello, la estructura del codigo se divide en 3 partes: el algoritmo principal (donde esta el stup y el draw), el diseño de las interfaces y la solución del problema. 
 
-## Manual de usuario.
+## ALGORITMO PRINCIPAL
 
-## Manual del sistema.
+## INTERFAZ DE USUARIO 
 
-### Funcionamiento de la interfaz
-
-### Solución fisica de las ecuaciones
-
-### Proceso de la animación
+## SOLUCIÓN DEL PROBLEMA 
 

@@ -41,6 +41,20 @@ movimiento | string | Esta variable sera utlizada para inidicarle al usuario que
 music | boolean | Esta es una variable de control que le indicara al programa si se debe reproducir los efectos de sonido y la musica de fondo (su valor dependera de lo que decida el usuario).
 ScreenId | int | Esta es una variable de control que se le indica al programa cual pantalla debera mostar.
 beforeScreen | int | Esta sera utlizada mayormente en el howToUse ya que esta presente en todas las pantallas y al momento de regresar necesita saber cual fue la pantalla anterior.
+x0 | float | Dato de entrada: la posición inicial de la masa
+v0 | float | Dato de entrada: la velocidad inicial de la masa
+m | float |  Dato de entrada: el valor de la masa, que no puede ser ni 0 ni negativo
+k | float |  Dato de entrada: el valor de la constante elastica del resorte, no puede ser negativa
+b | float |  Dato de entrada: el valor de la constante de amortiguamiento (es un dato opcional)
+f | float |  Dato de entrada: el valor de la fuerza (es un dato opcional)
+w0 | float | Dato de salida: es el valor de la velocidad angular inicial
+w | float | Dato de salida: la velocidad angular 
+A0 | float | Dato de salida: la amplid inicial 
+A | float | Dato de salida: la amplitud 
+t | float | Dato de salida: tiempo
+desfase | float | Dato de salida: el angulo de desfase 
+y | float | Dato de salida: la posición de la masa
+ 
 
 
 

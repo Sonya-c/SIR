@@ -7,6 +7,9 @@ color pink = #ff4b5c;
 color blue = #32e0c4;
 color dark = #222831;
 
+masa_resorte mr;
+solucion sol; 
+
 String movimiento = new String("Tipo de movimiento");
 boolean music = true;
 

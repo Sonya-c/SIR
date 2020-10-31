@@ -28,7 +28,7 @@ if (mouseX > x && mouseY > y && mouseX < x + w && mouseY < y + h) {
     cursor(ARROW)
 }
 ```
-_x_ y _y_ son el punto de partida de la imagen o figura dibujada y _w_ y _h_ son el ancho y largo, respectivamente. La estructura de las zonas activas se escribe dentro de una función como una estrutura de condicional multiples. Estos condicionales *no* se pueden escribir por separado, si se escriben separados (es decir, no anidados) el cursos empezara a parpadear. 
+**_x_** y **_y_** son el punto de partida de la imagen o figura dibujada y **_w_** y **_h_** son el ancho y largo, respectivamente. La estructura de las zonas activas se escribe dentro de una función como una estrutura de condicional multiples. Estos condicionales *no* se pueden escribir por separado, si se escriben separados (es decir, no anidados) el cursos empezara a parpadear. 
 
 ## SOLUCIÓN DEL PROBLEMA
 

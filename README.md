@@ -37,9 +37,13 @@ if (mouseX > x && mouseY > y && mouseX < x + w && mouseY < y + h) {
 Variable(s) | Tipo | Definición
 ------------ | ------------- | -------------
 white, gris, pink, blue, dark | color | Son los colores tema de la interfaz de usuario. Como estos se repetiran constantemente atravez de codigo, se obto por crear una variable para referenciarlos.
+
 movimiento | string | Esta variable sera utlizada para inidicarle al usuario que tipo de movimiento oscilatorio describe el sistema (su valor dependera de los resultados del experimento).
+
 music | boolean | Esta es una variable de control que le indicara al programa si se debe reproducir los efectos de sonido y la musica de fondo (su valor dependera de lo que decida el usuario).
+
 ScreenId | int | Esta es una variable de control que se le indica al programa cual pantalla debera mostar.
+
 beforeScreen | int | Esta sera utlizada mayormente en el howToUse ya que esta presente en todas las pantallas y al momento de regresar necesita saber cual fue la pantalla anterior.
 
 

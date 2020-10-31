@@ -60,7 +60,16 @@ icon | imagen | Es el icono que se vera en la ventana y en la barra de tareas
 welcome, scream0, scream1 | imagen | Son los fondos que se veran en las diferentes pantallas
 help, izq, der, help_buttom, musicOn, musicOff | imagen | Son botones que se veran en las diferentes pantallas
 masa, resorte | imagen | Es la masa y el resorte que se utilizaran en la animación
-AcousticCampfireGuitar, AcousticHappyFolk, BassyEnergy, electriccBeep, ElectricCharge, ElectricRisingAudio, EpicScifiTrailer, FluteNotification, FunHappyUpbeat, FunKidsupbeat, FunUpbeatBlues, FutureTechBackground, HiphopHappy, SifiElectricRising, SpaceshipTypingSound, SportsTrapBeat, Therunwaygames, UpbeatSwing, VideoGame21, VideoGame45, VideoGame51 | Audioplayer | son las diferentes pistas musicales que se escucharan a lo largo del programa. 
+AcousticCampfireGuitar, AcousticHappyFolk,
+BassyEnergy, electriccBeep,
+ElectricCharge, ElectricRisingAudio,
+EpicScifiTrailer, FluteNotification,
+FunHappyUpbeat, FunKidsupbeat,
+FunUpbeatBlues, FutureTechBackground,
+HiphopHappy, SifiElectricRising,
+SpaceshipTypingSound, SportsTrapBeat,
+Therunwaygames, UpbeatSwing, VideoGame21,
+VideoGame45, VideoGame51 | Audioplayer | son las diferentes pistas musicales que se escucharan a lo largo del programa. 
  
 
 

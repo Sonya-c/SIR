@@ -31,4 +31,13 @@ if (mouseX > x && mouseY > y && mouseX < x + w && mouseY < y + h) {
 **_x_** y **_y_** son el punto de partida de la imagen o figura dibujada y **_w_** y **_h_** son el ancho y largo, respectivamente. La estructura de las zonas activas se escribe dentro de una función como una estrutura de condicional multiples. Estos condicionales *no* se pueden escribir por separado, si se escriben separados (es decir, no anidados) el cursos empezara a parpadear. 
 
 ## SOLUCIÓN DEL PROBLEMA
+**no terminado**
+
+## Diccionario de variables 
+variable(s) | Tipo | Definición
+------------ | ------------- | -------------
+white, gris, pink, blue, dark | color | son los colores tema de la interfaz de usuario. Como estos se repetiran constantemente atravez de codigo, se obto por crear una variable para referenciarlos.
+movimiento | string | esta variable sera utlizada para inidicarle al usuario que tipo de movimiento oscilatorio describe el sistema (su valor dependera de los resultados del experimento).
+music | boolean | esta es una variable de control que le indicara al programa si se debe reproducir los efectos de sonido y la musica de fondo (su valor dependera de lo que decida el usuario)
+
 

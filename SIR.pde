@@ -7,17 +7,16 @@ color pink = #ff4b5c;
 color blue = #32e0c4;
 color dark = #222831;
 
-masa_resorte mr;
-solucion sol; 
-
 String movimiento = new String("Tipo de movimiento");
 boolean music = true;
-
+boolean play = true;
 int ScreenId = 0;
 int beforeScreen = 0;
 
-float x0, v0, m = 1, k, b, f; //DATOS DE ENTRADA
-float w0, w, A0, A, t, y, desfase; //DATOS DE SALIDA
+solucion sol; 
+
+public float x0, v0, m = 1, k, b, f; //DATOS DE ENTRADA
+public float w0, w, A0, A, t, y, desfase; //DATOS DE SALIDA
 float e = 2.71828;
 float spin = 0.5;
 
@@ -33,6 +32,9 @@ PImage musicOn;
 PImage musicOff;
 PImage masa;
 PImage resorte;
+PImage more;
+PImage less;
+PImage pause;
 
 AudioPlayer AcousticCampfireGuitar;
 AudioPlayer AcousticHappyFolk;
@@ -75,6 +77,9 @@ void setup() {
   scream1 = loadImage("Imagenes/proceso.png");
   masa = loadImage("Imagenes/masa.png");
   resorte = loadImage("Imagenes/resorte.png");
+  more = loadImage("Imagenes/more.png");
+  less = loadImage("Imagenes/less.png");
+  pause = loadImage("Imagenes/pause.png");
   
   minim = new Minim(this);
   AcousticCampfireGuitar = minim.loadFile("Musica/AcousticCampfireGuitar.mp3");
@@ -100,11 +105,12 @@ void setup() {
   VideoGame51 = minim.loadFile("Musica/VideoGame51.mp3");
 }
 
+boolean doThis = true;
 float trans = 255;
 void draw() {
   
   //pantalla de bienvenida
-  if (millis() < 10000 && trans >= 0) {
+  if (millis() < 10000 && trans >= 0 && doThis) {
     background(dark);
     tint(255, trans);
     image(welcome, 0, 0, width, height);

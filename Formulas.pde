@@ -1,25 +1,86 @@
 
 public class solucion {
-  float x0, v0, m, k, b, f; //DATOS DE ENTRADA
-  float w0, w, A0, A, t, y, desfase; //DATOS DE SALIDA
+  float vAngular;
+  float amplitud;
 
-  public solucion() {
-    x0 = 0;
-    v0 = 0;
-    m = 0;
-    b = 0;
-    f = 0;
+  public solucion () {
+    w0 = sqrt(k/m);
+    desfase = atan(-v0/(w0*x0));
+
+    if (b == 0) {
+      mas();
+    } else if (b < 2*m*w0) {
+      if (f == 0) {
+        subA();
+      } else { 
+        subAf();
+      }
+    } else if (b == 2*m*w0) {
+      if (f == 0) {
+        criticaA();
+      } else { 
+        criticaAf();
+      }
+    } else {
+      if (f == 0) {
+        sobreA();
+      } else {
+        sobreAf();
+      }
+    }
+  }
+
+  private void mas () {
+    movimiento = "Movimiento Armonico Simple";
+    w = w0;
+    A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2));
+    y = A*cos(w*t + desfase);
+  }
+
+  private void subA() {
+    movimiento = "Movimiento sub-Amortiguado";
+    w = sqrt(k/m - pow(b, 2)/(2*pow(m, 2)));
+    A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2));
+    y = A*pow(e, -b/(2*m))*cos(w*t + desfase);
+  }
+
+  private void criticaA() {
+    movimiento = "Movimiento Criticamente Amortiguado";
+    w = sqrt(k/m - pow(b, 2)/(2*pow(m, 2)));
+    A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2));
+    y = A*pow(e, -b/(2*m))*cos(w*t + desfase);
+  }
+
+  private void sobreA() {
+    movimiento = "Movimiento Sobre Amortiguado";
+    w = w0;
+    A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2));
+  }
+
+  private void subAf() {
+    movimiento = "Movimiento sub-Amortiguado forzado";
+    w = sqrt((k/m)-pow(b,2)/pow(4*m,2));
+    A = (f/m)/sqrt(pow(pow(w,2)-pow(w0,2),2)+pow(b*w/m,2));
+    //y
+  }
+
+  private void criticaAf() {
+    movimiento = "Movimiento Criticamente Amortiguado forzado";
+    w = sqrt((k/m)-pow(b,2)/pow(4*m,2));
+    A = (f/m)/sqrt(pow(pow(w,2)-pow(w0,2),2)+pow(b*w/m,2));
+    //y
+  }
+
+  private void sobreAf() {
+    movimiento = "Movimiento Sobre Amortiguado forzado";
   }
   
-  public float w0_inicial(float kresorte, float masa) {
-    w0 = sqrt(kresorte/masa);
-    return w0;
-  }
-  
-  public float a_desfase(float vinicial, float winicial, float xinicial) {
-    desfase = atan(-vinicial/(winicial * xinicial));
-    return desfase;
-  }
-  
-  
-}  
+}
+
+void animacion (){
+
+}
+
+void grafica() {
+
+}

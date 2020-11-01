@@ -31,7 +31,7 @@ if (mouseX > x && mouseY > y && mouseX < x + w && mouseY < y + h) {
 **_x_** y **_y_** son el punto de partida de la imagen o figura dibujada y **_w_** y **_h_** son el ancho y largo, respectivamente. La estructura de las zonas activas se escribe dentro de una función como una estrutura de condicional multiples. Estos condicionales *no* se pueden escribir por separado, si se escriben separados (es decir, no anidados) el cursos empezara a parpadear. 
 
 ## SOLUCIÓN DEL PROBLEMA
-**no terminado**
+* clase solucion: La clase solución es la que se encarga de verificar el tipo de movimiento y hallar los valores de las incognitas. Para ello, utiliza metodos privados, cada uno resuelve un movimiento diferentes esto es mas por practicidad (hace mas facil depurar y correjir el codigo) que por eficiencia. 
 
 ## Diccionario de variables 
 Variable(s) | Tipo | Definición

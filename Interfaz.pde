@@ -45,7 +45,7 @@ void inicio() {
   text(""+m, 627.6, 125, 127.6, 40);
   text(""+k, 627.6, 195, 127.6, 40);
   text(""+x0, 627.6, 265, 127.6, 40);
-  text(""+w0, 627.6, 335, 127.6, 40);
+  text(""+v0, 627.6, 335, 127.6, 40);
   text(""+b, 627.6, 405, 127.6, 40);
   text(""+f, 627.6, 475, 127.6, 40);
 
@@ -108,7 +108,7 @@ void inicio() {
   } else if (mouseX > 587.6 && mouseY > 335 && mouseX < 587.6 + 40 && mouseY < 335 + 40) {
     cursor(HAND);
     if (mousePressed) {
-      w0 -= spin;
+      v0 -= spin;
     }
   } else if (mouseX > 587.6 && mouseY > 405 && mouseX < 587.6 + 40 && mouseY < 405 + 40) {
     cursor(HAND);
@@ -138,7 +138,7 @@ void inicio() {
   } else if (mouseX > 753.2 && mouseY > 335 && mouseX < 753.2 + 40 && mouseY < 335 + 40) {
     cursor(HAND);
     if (mousePressed) {
-      w0 += spin;
+      v0 += spin;
     }
   } else if (mouseX > 753.2 && mouseY > 405 && mouseX < 753.2 + 40 && mouseY < 405 + 40) {
     cursor(HAND);
@@ -189,16 +189,26 @@ void processing() {
   image(scream1, 0, 0, 1000, 580);
   image(izq, 20, 5, 40, 40);
   image(help_buttom, 65, 5, 40, 40);
+
   if (music)
     image(musicOn, 105, 5, 40, 40);
   else
     image(musicOff, 105, 5, 40, 40);
 
-  image(masa, 85, 170, 80, 80);
-  image(resorte, 100, 90, 40, 100);
-  
+  //40  
+  image(less, 60, 58, 40, 40);
+  if (play) {
+    image(pause, 100, 58, 40, 40);
+    t += 0.1;
+  } else {
+    image(der, 100, 58, 40, 40);
+  }
+  image(more, 140, 58, 40, 40);
+
   fill(dark);
   textSize(12);
+  textAlign(LEFT, CENTER);
+  text("t = "+int(t)+" s", 450, 65);
   textAlign(CENTER, CENTER);
   text(""+m, 850, 90, 115, 30);
   text(""+k, 850, 90 + 50, 115, 30);
@@ -206,14 +216,16 @@ void processing() {
   text(""+v0, 850, 90 + 3*50, 115, 30);
   text(""+b, 850, 90 + 4*50, 115, 30);
   text(""+f, 850, 90 + 5*50, 115, 30);
-  text(""+w, 850, 90 + 6*50, 115, 30);
-  text(""+A, 850, 90 + 7*50, 115, 30);
-  text(""+desfase, 850, 90 + 8*50, 115, 30);
-
+  text(""+w0, 850, 90 + 6*50, 115, 30);
+  text(""+w, 850, 90 + 7*50, 115, 30);
+  text(""+A, 850, 90 + 8*50, 115, 30);
   fill(white);
   textSize(20);
-  textAlign(CENTER, CENTER);
   text(movimiento, 500, 20);
+
+  sol = new solucion();
+  animacion();
+  grafica();
 
   //--->ZONAS ACTIVAS<---//
   if (mouseX > 20 && mouseY > 5 && mouseX < 20 + 40 && mouseY < 5 + 40) {
@@ -234,6 +246,21 @@ void processing() {
     cursor(HAND);
     if (mousePressed) {
       music = !music;
+    }
+  } else if (mouseX > 60 && mouseY > 58 && mouseX < 60 + 40 && mouseY <  58 + 40) {
+    cursor(HAND);
+    if (mousePressed) {
+      t -= spin;
+    }
+  } else if (mouseX > 100 && mouseY > 58 && mouseX < 100 + 40 && mouseY < 58 + 40) {
+    cursor(HAND);
+    if (mousePressed) {
+      play = !play;
+    }
+  } else if (mouseX > 140 && mouseY > 58 && mouseX < 140 + 40 && mouseY < 58 + 40) {
+    cursor(HAND);
+    if (mousePressed) {
+      t += spin;
     }
   } else {
     cursor(ARROW);

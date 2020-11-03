@@ -15,8 +15,8 @@ int beforeScreen = 0;
 
 solucion sol; 
 
-public float x0, v0, m = 1, k, b, f; //DATOS DE ENTRADA
-public float w0, w, A0, A, t, y, desfase; //DATOS DE SALIDA
+float x0, v0, m = 1, k, b, f; //DATOS DE ENTRADA
+float w0, w, A0, A, t, y, desfase; //DATOS DE SALIDA
 float e = 2.71828;
 float spin = 0.5;
 
@@ -105,7 +105,7 @@ void setup() {
   VideoGame51 = minim.loadFile("Musica/VideoGame51.mp3");
 }
 
-boolean doThis = true;
+boolean doThis = true; //esto es solo para detener la transición
 float trans = 255;
 void draw() {
   

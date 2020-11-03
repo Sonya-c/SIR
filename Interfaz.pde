@@ -4,7 +4,7 @@ void inicio() {
   boolean can = m != 0 && k != 0;
   //la variable can determina si ya se puede saltar a la siguiente pestaña, es decir, si ya se han dijitado los datos necesarios
 
-  image(scream0, 0, 0, 1000, 580); 
+  image(scream0, 0, 0, width, height); 
   image(help_buttom, 140, 25, 40, 40);
   if (music)
     image(musicOn, 180, 25, 40, 40);
@@ -78,6 +78,7 @@ void inicio() {
     cursor(HAND);
     if (mousePressed) {
       ScreenId = 1;
+      t = 0;
     }
     //Boton de musica
   } else if (mouseX > 180 && mouseY > 25 && mouseX < 180 + 40 && mouseY < 25 + 40) {
@@ -186,7 +187,7 @@ void howToUse() {
 
 void processing() {
   noStroke();
-  image(scream1, 0, 0, 1000, 580);
+  image(scream1,  0, 0, width, height);
   image(izq, 20, 5, 40, 40);
   image(help_buttom, 65, 5, 40, 40);
 
@@ -247,7 +248,7 @@ void processing() {
     if (mousePressed) {
       music = !music;
     }
-  } else if (mouseX > 60 && mouseY > 58 && mouseX < 60 + 40 && mouseY <  58 + 40) {
+  } else if (mouseX > 60 && mouseY > 58 && mouseX < 60 + 40 && mouseY <  58 + 40 && t - spin > 0) {
     cursor(HAND);
     if (mousePressed) {
       t -= spin;

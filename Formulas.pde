@@ -1,6 +1,6 @@
 
 public class solucion {
-
+  
   public solucion () {
     w0 = sqrt(k/m);
     desfase = atan(-v0/(w0*x0));
@@ -74,15 +74,35 @@ public class solucion {
   }
 }
 
+FloatList wave;
 void animacion () {
   fill(dark);
   textSize(12);
   text("-A", 60, 150);
   text("A", 60, 3*150);
+
   image(masa, 90, 2*150 + 150*(y/A), 80, 80);
   image(resorte, 90, 100, 80, 220 + 150*(y/A));
-}
 
-void grafica() {
-  
+  rect(140, 40.5 + 2*150 + 150*(y/A), 200, 1);
+
+  if (play) 
+    wave.append(40 + 2*150 + 150*(y/A));
+  wave.reverse();
+
+  noFill();
+  stroke(dark);
+  beginShape();
+  for (int i = 0; i < wave.size(); i++) {
+    //circle(340 + i, wave.get(i), 2);
+    curveVertex(340 + i, wave.get(i));
+    if (i == 400) {
+      wave.remove(i);
+    }
+  }
+  endShape();
+  fill(pink);
+  circle(340, 40.5 + 2*150 + 150*(y/A), 10);
+  println(wave.size());
+  wave.reverse();
 }

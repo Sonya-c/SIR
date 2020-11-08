@@ -1,11 +1,10 @@
 
 void inicio() {
+  can = m != 0 && k != 0;
   noStroke();
-  boolean can = m != 0 && k != 0;
-  //la variable can determina si ya se puede saltar a la siguiente pestaña, es decir, si ya se han dijitado los datos necesarios
-
   image(scream0, 0, 0, width, height); 
   image(help_buttom, 140, 25, 40, 40);
+
   if (music)
     image(musicOn, 180, 25, 40, 40);
   else
@@ -34,12 +33,12 @@ void inicio() {
 
   //CUADRO DE VALORES//
   fill(white); //primero se dibuja un cuadro blanco
-  rect(627.6, 125, 127.6, 40);
-  rect(627.6, 195, 127.6, 40);
-  rect(627.6, 265, 127.6, 40);
-  rect(627.6, 335, 127.6, 40);
-  rect(627.6, 405, 127.6, 40);
-  rect(627.6, 475, 127.6, 40);
+  rect(627.6, 125, 127.6, 40, 5);
+  rect(627.6, 195, 127.6, 40, 5);
+  rect(627.6, 265, 127.6, 40, 5);
+  rect(627.6, 335, 127.6, 40, 5);
+  rect(627.6, 405, 127.6, 40, 5);
+  rect(627.6, 475, 127.6, 40, 5);
   fill(dark); //Ahora se escriben los valores
   textAlign(CENTER, CENTER);
   text(""+m, 627.6, 125, 127.6, 40);
@@ -64,130 +63,11 @@ void inicio() {
   image(der, 753.2, 335, 40, 40);
   image(der, 753.2, 405, 40, 40);
   image(der, 753.2, 475, 40, 40);
-
-  //ZONAS ACTIVAS (ESPECIAL CUIDADO)//
-  //Esta zona corresponde al boton de ayuda
-  if (mouseX > 140 && mouseY > 25 && mouseX < 140 + 40 && mouseY < 25 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      beforeScreen = ScreenId; //Con esta variable, cuandro se regrese de la pagina de ayuda volvera aquí
-      ScreenId = 2;
-    }
-    //Esta zona corresponde al boton de volver, solo estara activo si la variable can es verdadera
-  } else if (mouseX > 627.6 && mouseY > 530 && mouseX < 627.6 + 127.6 && mouseY < 530 + 40 && can) {
-    cursor(HAND);
-    if (mousePressed) {
-      ScreenId = 1;
-      t = 0;
-    }
-    //Boton de musica
-  } else if (mouseX > 180 && mouseY > 25 && mouseX < 180 + 40 && mouseY < 25 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      music = !music;
-    }
-    //El resto son los controladores correspondeientes a los botones de las variables
-  } else if (mouseX > 587.6 && mouseY > 125 && mouseX < 627.6 && mouseY < 125 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      if (m - spin > 0) {
-        m -= spin;
-      }
-    }
-  } else if (mouseX > 587.6 && mouseY > 195 && mouseX < 587.6 + 40 && mouseY < 195 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      if (k - spin > 0) {
-        k -= spin;
-      }
-    }
-  } else if (mouseX > 587.6 && mouseY > 265 && mouseX < 587.6 + 40 && mouseY < 265 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      x0 -= spin;
-    }
-  } else if (mouseX > 587.6 && mouseY > 335 && mouseX < 587.6 + 40 && mouseY < 335 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      v0 -= spin;
-    }
-  } else if (mouseX > 587.6 && mouseY > 405 && mouseX < 587.6 + 40 && mouseY < 405 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      b -= spin;
-    }
-  } else if (mouseX > 587.6 && mouseY > 475 && mouseX < 587.6 + 40 && mouseY < 475 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      f -= spin;
-    }
-  } else if (mouseX > 753.2 && mouseY > 125 && mouseX < 753.2 + 40 && mouseY < 125 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      m += spin;
-    }
-  } else if (mouseX > 753.2 && mouseY > 195 && mouseX < 753.2 + 40 && mouseY < 195 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      k += spin;
-    }
-  } else if (mouseX > 753.2 && mouseY > 265 && mouseX < 753.2 + 40 && mouseY < 265 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      x0 += spin;
-    }
-  } else if (mouseX > 753.2 && mouseY > 335 && mouseX < 753.2 + 40 && mouseY < 335 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      v0 += spin;
-    }
-  } else if (mouseX > 753.2 && mouseY > 405 && mouseX < 753.2 + 40 && mouseY < 405 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      b += spin;
-    }
-  } else if (mouseX > 753.2 && mouseY > 475 && mouseX < 753.2 + 40 && mouseY < 475 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      f += spin;
-    }
-  } else {
-    cursor(ARROW);
-  }
-}
-
-void howToUse() {
-  image(help, 0, 0, 1000, 580);
-  image(izq, 380, 20, 40, 40);
-
-  //BOTONES
-  fill(pink);
-  rect(600, 30, 75, 25, 7); //Este corresponde al boton de ir al sitio web
-  fill(white);
-  textAlign(CENTER, CENTER);
-  text("Sitio web", 600, 25, 75, 25);
-
-  //ZONAS ACTIVAS//
-  //esta zona corresponde al boton de volver
-  if (mouseX > 380 && mouseY > 20 && mouseX < 380 + 40 && mouseY < 20 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      ScreenId = beforeScreen; //de esta forma podemos volver a la pantalla original
-    }
-    //Esta zona corresponde al link al sitio web
-  } else if (mouseX > 600 && mouseY > 30 && mouseX < 600 + 75 && mouseY < 30 + 25) {
-    cursor(HAND);
-    if (mousePressed) {
-      link("https://sites.google.com/view/el-proyectoc-cmw/home"); //link al sitio web
-    }
-  } else {
-    cursor(ARROW);
-  }
 }
 
 void processing() {
   noStroke();
-  image(scream1,  0, 0, width, height);
+  image(scream1, 0, 0, width, height);
   image(izq, 20, 5, 40, 40);
   image(help_buttom, 65, 5, 40, 40);
 
@@ -196,20 +76,18 @@ void processing() {
   else
     image(musicOff, 105, 5, 40, 40);
 
-  //40  
-  image(less, 60, 58, 40, 40);
   if (play) {
-    image(pause, 100, 58, 40, 40);
+    image(pause, 400, 68, 40, 40);
     t += 0.1;
   } else {
-    image(der, 100, 58, 40, 40);
+    image(der, 400, 68, 40, 40);
   }
-  image(more, 140, 58, 40, 40);
+  image(more, 440, 68, 40, 40);
 
   fill(dark);
   textSize(12);
   textAlign(LEFT, CENTER);
-  text("t = "+int(t)+" s", 450, 65);
+  text("t = "+int(t)+" s", 550, 85);
   textAlign(CENTER, CENTER);
   text(""+m, 850, 90, 115, 30);
   text(""+k, 850, 90 + 50, 115, 30);
@@ -226,44 +104,15 @@ void processing() {
 
   sol = new solucion();
   animacion();
-  grafica();
+}
 
-  //--->ZONAS ACTIVAS<---//
-  if (mouseX > 20 && mouseY > 5 && mouseX < 20 + 40 && mouseY < 5 + 40) {
-    //VOLVER
-    cursor(HAND);
-    if (mousePressed) {
-      ScreenId = 0;
-    }
-  } else if (mouseX > 65 && mouseY > 5 && mouseX < 65 + 40 && mouseY < 5 + 40) {
-    //AYUDA
-    cursor(HAND);
-    if (mousePressed) {
-      beforeScreen = ScreenId;
-      ScreenId = 2;
-    }
-  } else if (mouseX > 105 && mouseY > 5 && mouseX < 105 + 40 && mouseY < 5 + 40) {
-    //SONIDO
-    cursor(HAND);
-    if (mousePressed) {
-      music = !music;
-    }
-  } else if (mouseX > 60 && mouseY > 58 && mouseX < 60 + 40 && mouseY <  58 + 40 && t - spin > 0) {
-    cursor(HAND);
-    if (mousePressed) {
-      t -= spin;
-    }
-  } else if (mouseX > 100 && mouseY > 58 && mouseX < 100 + 40 && mouseY < 58 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      play = !play;
-    }
-  } else if (mouseX > 140 && mouseY > 58 && mouseX < 140 + 40 && mouseY < 58 + 40) {
-    cursor(HAND);
-    if (mousePressed) {
-      t += spin;
-    }
-  } else {
-    cursor(ARROW);
-  }
+void howToUse() {
+  image(help, 0, 0, 1000, 580);
+  image(izq, 380, 20, 40, 40);
+
+  fill(pink);
+  rect(600, 30, 75, 25, 7); //Este corresponde al boton de ir al sitio web
+  fill(white);
+  textAlign(CENTER, CENTER);
+  text("Sitio web", 600, 25, 75, 25);
 }

@@ -29,7 +29,7 @@ public class solucion {
   }
 
   private void mas () {
-    movimiento = "Movimiento Armonico Simple";
+    movimiento = "Movimiento Armónico Simple";
     w = w0;
     A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2));
     y = A*cos(w*t + desfase);
@@ -75,17 +75,20 @@ public class solucion {
 }
 
 FloatList wave;
+
 void animacion () {
   fill(dark);
   textSize(12);
   text("-A", 60, 150);
   text("A", 60, 3*150);
-
+  
+  //MOVIMIENTO DE LA MASA Y EL RESORTE
   image(masa, 90, 2*150 + 150*(y/A), 80, 80);
   image(resorte, 90, 100, 80, 220 + 150*(y/A));
 
   rect(140, 40.5 + 2*150 + 150*(y/A), 200, 1);
-
+  
+  //GRAFICA
   if (play) 
     wave.append(40 + 2*150 + 150*(y/A));
   wave.reverse();
@@ -103,6 +106,24 @@ void animacion () {
   endShape();
   fill(pink);
   circle(340, 40.5 + 2*150 + 150*(y/A), 10);
-  println(wave.size());
   wave.reverse();
+}
+
+void datos () {
+  if (guardar && play) {
+    //row.setString("Movimiento");
+    row = table.addRow();
+    row.setString("Movimiento", movimiento);
+    row.setDouble("Posición inicial", x0);
+    row.setDouble("Velocidad inicial", v0);
+    row.setDouble("Masa", m);
+    row.setDouble("Constante elastica", k);
+    row.setDouble("Constante de amortigüamiento", b);
+    row.setDouble("Fuerza", f);
+    row.setDouble("Velocidad angular inicial", w0);
+    row.setDouble("Velocidad angular", w);
+    row.setDouble("Amplitud", A);
+    row.setDouble("Tiempo", t);
+    row.setDouble("Posición", y);
+  }
 }

@@ -1,27 +1,47 @@
 import ddf.minim.*;
-Minim minim;
 
+Minim minim;
 solucion sol; 
 
+//VARIABLES RELACIONADAS A LA TOMA DE DATOS
+Table table;
+TableRow row;
+
+//LOS COLORES
 color white = #ffffff;
 color gris = #e0ece4;
 color pink = #ff4b5c;
 color blue = #32e0c4;
 color dark = #222831;
 
-int ScreenId = 0;
-int beforeScreen = 0;
+int ScreenId = 0; //indica la pantalla que se esta mostrando
+int beforeScreen = 0; //indica la pantalla anterior. se usa en el how to use (que aparece en diferentes sitio)
+int pop_time = 125; //indica cuanto dura un mesaje (se usa cuando se desargan datos)
 
 float x0, v0, m = 1, k, b, f; //DATOS DE ENTRADA
 float w0, w, A0, A, t, y, desfase; //DATOS DE SALIDA
-float e = 2.71828;
-float spin = 0.5;
+float e = 2.71828; //Es una constante
+float spin = 0.5; //Indica como aumenta o disminulle los spiners en la toma de datos
 
 String movimiento = new String("Tipo de movimiento");
-boolean music = true;
-boolean play = true;
-boolean can; //la variable can determina si ya se puede saltar a la siguiente pestaña, es decir, si ya se han dijitado los datos necesarios
+String path = new String("DATA"); //Indica la ruta donde se va a guardar la tabla de datos
+String extension = new String("csv"); //Indica que extensión tendra la table de datos (csv o html)
+String datos; //Indica si el usuario selecciono guardar todos los datos o solo algunos
 
+boolean music = true; //Indica si la musica debe sonar o no
+boolean can = false; //permite saltar al experimento si ya se han dijitado los datos necesarios
+boolean pop1_messange = false; //es verdadera cuando se han descargado datos
+boolean play = true; /*
+ *Indica si el experiemnto esta en pausa o no
+ *Si es falsa el proceso de halla la solución se detendra
+ *Si es falsa la animación se detendra
+ *Si es falsa el proceso de guardar datos se detendra
+ */
+boolean guardar = false; /*
+ *Indica si el usuario quiere guarar los datos
+ *Si es falsa todo el proceso de toma de datos se detendra
+ */
+ 
 PImage icon;
 PImage welcome;
 PImage scream0;
@@ -37,9 +57,14 @@ PImage resorte;
 PImage more;
 PImage less;
 PImage pause;
+PImage guardar1;
+PImage guardar2;
+PImage download;
+PImage pop1;
 
 AudioPlayer AcousticCampfireGuitar;
 AudioPlayer AcousticHappyFolk;
+AudioPlayer Clic;
 AudioPlayer BassyEnergy;
 AudioPlayer electriccBeep;
 AudioPlayer ElectricCharge;
@@ -52,6 +77,7 @@ AudioPlayer FunUpbeatBlues;
 AudioPlayer FutureTechBackground;
 AudioPlayer HiphopHappy;
 AudioPlayer SifiElectricRising;
+AudioPlayer Silencio;
 AudioPlayer SpaceshipTypingSound;
 AudioPlayer SportsTrapBeat;
 AudioPlayer Therunwaygames;
@@ -62,7 +88,23 @@ AudioPlayer VideoGame51;
 
 void setup() {
   size(1000, 580);
+
   wave = new FloatList();
+  table = new Table();  
+
+  //movimiento,x0, v0, m = 1, k, b, f, w0, w, A, t, y; 
+  table.addColumn("Movimiento");
+  table.addColumn("Posición inicial");
+  table.addColumn("Velocidad inicial");
+  table.addColumn("Masa");
+  table.addColumn("Constante elastica");
+  table.addColumn("Constante de amortigüamiento");
+  table.addColumn("Fuerza");
+  table.addColumn("Velocidad angular inicial");
+  table.addColumn("Velocidad angular");
+  table.addColumn("Amplitud");
+  table.addColumn("Tiempo");
+  table.addColumn("Posición");
 
   //Cambiar el icono de la ventana
   icon = loadImage("Imagenes/Icon.png");
@@ -82,11 +124,16 @@ void setup() {
   more = loadImage("Imagenes/more.png");
   less = loadImage("Imagenes/less.png");
   pause = loadImage("Imagenes/pause.png");
+  guardar1 = loadImage("Imagenes/guardar1.png");
+  guardar2 = loadImage("Imagenes/guardar2.png");
+  download = loadImage("Imagenes/download.png");
+  pop1 = loadImage("Imagenes/pop1.png");
 
   minim = new Minim(this);
   AcousticCampfireGuitar = minim.loadFile("Musica/AcousticCampfireGuitar.mp3");
   AcousticHappyFolk = minim.loadFile("Musica/AcousticHappyFolk.mp3");
   BassyEnergy  = minim.loadFile("Musica/BassyEnergy.mp3");
+  Clic = minim.loadFile("Musica/Clic.mp3");
   electriccBeep = minim.loadFile("Musica/electriccBeep.wav");
   ElectricCharge = minim.loadFile("Musica/ElectricCharge.wav");
   ElectricRisingAudio = minim.loadFile("Musica/ElectricRisingAudio.wav");
@@ -98,6 +145,7 @@ void setup() {
   FutureTechBackground = minim.loadFile("Musica/FutureTechBackground.mp3");
   HiphopHappy = minim.loadFile("Musica/HiphopHappy.mp3");
   SifiElectricRising = minim.loadFile("Musica/SifiElectricRising.wav");
+  Silencio = minim.loadFile("Musica/Silencio.mp3");
   SpaceshipTypingSound = minim.loadFile("Musica/SpaceshipTypingSound.wav");
   SportsTrapBeat = minim.loadFile("Musica/SportsTrapBeat.mp3");
   Therunwaygames = minim.loadFile("Musica/Therunwaygames.wav");
@@ -107,16 +155,19 @@ void setup() {
   VideoGame51 = minim.loadFile("Musica/VideoGame51.mp3");
 }
 
-boolean doThis = false; //esto es solo para detener la transición
-float trans = 255;
+
+
+boolean doThis = true; //esto es solo para detener la transición
+float trans = 255; //Indica el tiempo en el que durara la pantalla de bienvenida
 void draw() {
 
   //pantalla de bienvenida
   if (millis() < 10000 && trans >= 0 && doThis) {
     background(dark);
-    tint(255, trans);
+    tint(255, trans); //esto determina la opacidad de la imagen
     image(welcome, 0, 0, width, height);
     trans -= 1;
+    
   } else {
     tint(255, 255);
     switch(ScreenId) {
@@ -132,6 +183,14 @@ void draw() {
       background(34, 40, 49);
       howToUse(); 
       break;
+    case 3:
+      background(34, 40, 49);
+      guardar1();
+      break;
+    case 4:
+      background(34, 40, 49);
+      guardar2();
+      break;
     }
   }
 }
@@ -141,14 +200,12 @@ void mousePressed() {
   case 0:
     can = m != 0 && k != 0;
     if (mouseX > 140 && mouseY > 25 && mouseX < 140 + 40 && mouseY < 25 + 40) {
-      beforeScreen = ScreenId;
+      beforeScreen = ScreenId; //con esto se salta al how to use
       ScreenId = 2;
     } else if (mouseX > 627.6 && mouseY > 530 && mouseX < 627.6 + 127.6 && mouseY < 530 + 40 && can) {
-      t = 0;
-      wave = new FloatList();
-      ScreenId = 1;
+      ScreenId = 3; //con esto se pregunta si se quiere tomar datos
     } else if (mouseX > 180 && mouseY > 25 && mouseX < 180 + 40 && mouseY < 25 + 40) {
-      music = !music;
+      music = !music; 
     } else if (mouseX > 587.6 && mouseY > 125 && mouseX < 627.6 && mouseY < 125 + 40 && m - spin > 0) {
       m -= spin;
     } else if (mouseX > 587.6 && mouseY > 195 && mouseX < 587.6 + 40 && mouseY < 195 + 40 && k - spin > 0) {
@@ -175,27 +232,75 @@ void mousePressed() {
       f += spin;
     }
     break;
+
   case 1:
     if (mouseX > 20 && mouseY > 5 && mouseX < 20 + 40 && mouseY < 5 + 40) {
-      ScreenId = 0;
+      ScreenId = 0; //con esto se regresa a la pantala principal
     } else if (mouseX > 65 && mouseY > 5 && mouseX < 65 + 40 && mouseY < 5 + 40) {
-      beforeScreen = ScreenId;
+      beforeScreen = ScreenId; // con esto se va al how to use
       ScreenId = 2;
     } else if (mouseX > 105 && mouseY > 5 && mouseX < 105 + 40 && mouseY < 5 + 40) {
       music = !music;
     } else if (mouseX > 400 && mouseY > 68 && mouseX < 400 + 40 && mouseY < 68 + 40) {
       play = !play;
+    } else if (mouseX > 145 && mouseY > 5 && mouseX < 145 + 40 && mouseY < 5 + 40 && guardar) {
+      saveTable(table, path+"/"+movimiento+"."+extension, extension); //con esto se descarga la tabla
+      pop1_messange = true; //y con esto se muestra el mensaje
     } else if (mouseX > 440 && mouseY > 68 && mouseX < 440 + 40 && mouseY < 68 + 40) {
       t += 0.1;
-      wave.append(40 + 2*150 + 150*(y/A));
-    }
+      Clic.rewind();
+      Clic.play();
+      wave.append(40 + 2*150 + 150*(y/A)); 
+    } 
     break;
+
   case 2:
     if (mouseX > 380 && mouseY > 20 && mouseX < 380 + 40 && mouseY < 20 + 40) {
-      ScreenId = beforeScreen;
+      ScreenId = beforeScreen; // con esto se devuelve a la pantalla anterior
     } else if (mouseX > 600 && mouseY > 30 && mouseX < 600 + 75 && mouseY < 30 + 25) {
       link("https://sites.google.com/view/el-proyectoc-cmw/home");
     }
     break;
+
+  case 3:
+    if (mouseX > 300 && mouseY > 350 && mouseX < 300 + 100 && mouseY < 350 + 40) {
+      //Con esto se salta a la pantalla principla NO SE TOMAN DATOS
+      t = 0; 
+      wave = new FloatList();
+      ScreenId = 1;
+      guardar = false;
+    } else if (mouseX > 600 && mouseY > 350 && mouseX < 600 + 100 && mouseY < 350 + 40) {
+      //Con esto se va a preguntar por la especificaciones en la toma de datos
+      ScreenId = 4;
+    }
+    break;
+
+  case 4:
+    if (mouseX > 500 && mouseY > 150 && mouseX < 500 + 200 && mouseY < 150 + 30) {
+      //CON ESTO SE LE PREGUNTA AL USURIO DONDE QUIERE GUARDAR LA TABLA --> VER FUNCIÓN folderSelected
+      selectFolder("Select a folder to process:", "folderSelected");
+    } else if (mouseX > 580 && mouseY > 230 && mouseX < 580 + 20 && mouseY < 230 + 20) {
+      extension = "html";
+    } else if (mouseX > 580 && mouseY > 270 && mouseX < 580 + 20 && mouseY < 270 + 20) {
+      extension = "csv";
+    } else if (mouseX > 300 && mouseY > 380 && mouseX < 300 + 100 && mouseY < 380 + 40) {
+      //CON ESTO LA OPERACION SE CANCELA
+      ScreenId = 3;
+    } else if (mouseX > 600 && mouseY > 380 && mouseX < 600 + 100 && mouseY < 380 + 40) {
+      t = 0;
+      wave = new FloatList();
+      guardar = true;
+      ScreenId = 1;
+    }
+    break;
+  }
+}
+
+void folderSelected(File selection) {
+  if (selection == null) {
+    println("Window was closed or the user hit cancel.");
+  } else {
+    path = selection.getAbsolutePath();
+    println(path);
   }
 }

@@ -5,16 +5,22 @@ void inicio() {
   image(scream0, 0, 0, width, height); 
   image(help_buttom, 140, 25, 40, 40);
 
-  if (music)
+  FunKidsupbeat.pause();
+
+  if (music) {    
+    HiphopHappy.play();
     image(musicOn, 180, 25, 40, 40);
-  else
+  } else {
     image(musicOff, 180, 25, 40, 40);
+    HiphopHappy.pause();
+  }  
 
   //Boton para pasar a la siguiente pestaña
   if (can)
     fill(blue); 
-  else 
-  fill(gris); 
+  else
+
+    fill(gris); 
   rect(627.6, 530, 127.6, 40, 7);
 
   //TITULOS
@@ -25,7 +31,7 @@ void inicio() {
 
   textAlign(CENTER);
   text("Masa", 685, 120);
-  text("Constante Elastica", 685, 190);
+  text("Constante Elástica", 685, 190);
   text("Posición Inicial", 685, 260);
   text("Velocidad Inicial", 685, 330);
   text("Constante de Amortiguamiento", 685, 400);
@@ -71,10 +77,19 @@ void processing() {
   image(izq, 20, 5, 40, 40);
   image(help_buttom, 65, 5, 40, 40);
 
-  if (music)
+  HiphopHappy.pause();
+
+  if (music) {
     image(musicOn, 105, 5, 40, 40);
-  else
+    FunKidsupbeat.play();
+  } else {
     image(musicOff, 105, 5, 40, 40);
+    FunKidsupbeat.pause();
+  }
+
+  if (guardar) {
+    image(download, 145, 5, 40, 40);
+  }
 
   if (play) {
     image(pause, 400, 68, 40, 40);
@@ -83,6 +98,8 @@ void processing() {
     image(der, 400, 68, 40, 40);
   }
   image(more, 440, 68, 40, 40);
+  
+  
 
   fill(dark);
   textSize(12);
@@ -101,9 +118,15 @@ void processing() {
   fill(white);
   textSize(20);
   text(movimiento, 500, 20);
-
+  
   sol = new solucion();
   animacion();
+  datos();
+  
+  if (pop_time >= 0 && pop1_messange) {
+    image(pop1, 250, 250);
+    pop_time -= 1;
+  }
 }
 
 void howToUse() {
@@ -115,4 +138,49 @@ void howToUse() {
   fill(white);
   textAlign(CENTER, CENTER);
   text("Sitio web", 600, 25, 75, 25);
+}
+
+void guardar1 () {
+  image(guardar1, 0, 0, width, height);
+  noStroke();
+  fill(pink);
+  rect(300, 350, 100, 40, 10);
+  rect(600, 350, 100, 40, 10);
+  fill(white);
+  textSize(15);
+  textAlign(CENTER, CENTER);
+  text("NO", 300, 350, 100, 40);
+  text("SI", 600, 350, 100, 40);
+}
+
+void guardar2 () {
+  image(guardar2, 0, 0, width, height);
+  noStroke();
+
+  fill(pink);
+  rect(300, 380, 100, 40, 10);
+  rect(600, 380, 100, 40, 10);
+
+  fill(white);
+  rect(500, 150, 300, 30, 10);
+  rect(580, 230, 20, 20, 10);
+  rect(580, 270, 20, 20, 10);
+  rect(500, 310, 300, 30, 10);
+
+  textSize(15);
+  textAlign(CENTER, CENTER);
+  text("Calcelar", 300, 380, 100, 40);
+  text("Continuar", 600, 380, 100, 40);
+
+  fill(dark);
+  textSize(12);
+  textAlign(LEFT, CENTER);
+  text("Todos", 502, 310, 300, 30);
+  text(path, 502, 150, 300, 30);
+  
+  if (extension == "html") {
+    rect(582.5, 232.5, 15, 15, 10);
+  } else {
+    rect(582.5, 272.5, 15, 15, 10);
+  }
 }

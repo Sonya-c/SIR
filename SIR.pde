@@ -1,5 +1,5 @@
 import ddf.minim.*;
-
+import processing.sound.*;
 Minim minim;
 solucion sol; 
 
@@ -62,32 +62,19 @@ PImage guardar2;
 PImage download;
 PImage pop1;
 
-AudioPlayer AcousticCampfireGuitar;
-AudioPlayer AcousticHappyFolk;
-AudioPlayer Clic;
+
+
 AudioPlayer BassyEnergy;
-AudioPlayer electriccBeep;
-AudioPlayer ElectricCharge;
-AudioPlayer ElectricRisingAudio;
-AudioPlayer EpicScifiTrailer;
-AudioPlayer FluteNotification;
-AudioPlayer FunHappyUpbeat;
+AudioPlayer Epic;
 AudioPlayer FunKidsupbeat;
-AudioPlayer FunUpbeatBlues;
-AudioPlayer FutureTechBackground;
 AudioPlayer HiphopHappy;
-AudioPlayer SifiElectricRising;
-AudioPlayer Silencio;
-AudioPlayer SpaceshipTypingSound;
-AudioPlayer SportsTrapBeat;
-AudioPlayer Therunwaygames;
-AudioPlayer UpbeatSwing;
-AudioPlayer VideoGame21;
-AudioPlayer VideoGame45;
-AudioPlayer VideoGame51;
+AudioPlayer VideoGame51; // Efecto de sonido "play"
+SoundFile Clic;
 
 void setup() {
   size(1000, 580);
+  Clic = new SoundFile(this, "Musica/Clic.mp3");
+  wave = new FloatList();
 
   wave = new FloatList();
   table = new Table();  
@@ -130,28 +117,11 @@ void setup() {
   pop1 = loadImage("Imagenes/pop1.png");
 
   minim = new Minim(this);
-  AcousticCampfireGuitar = minim.loadFile("Musica/AcousticCampfireGuitar.mp3");
-  AcousticHappyFolk = minim.loadFile("Musica/AcousticHappyFolk.mp3");
+  
   BassyEnergy  = minim.loadFile("Musica/BassyEnergy.mp3");
-  Clic = minim.loadFile("Musica/Clic.mp3");
-  electriccBeep = minim.loadFile("Musica/electriccBeep.wav");
-  ElectricCharge = minim.loadFile("Musica/ElectricCharge.wav");
-  ElectricRisingAudio = minim.loadFile("Musica/ElectricRisingAudio.wav");
-  EpicScifiTrailer = minim.loadFile("Musica/EpicScifiTrailer.mp3");
-  FluteNotification = minim.loadFile("Musica/FluteNotification.wav");
-  FunHappyUpbeat = minim.loadFile("Musica/FunHappyUpbeat.mp3");
+  Epic = minim.loadFile("Musica/Epic.mp3");
   FunKidsupbeat = minim.loadFile("Musica/FunKidsupbeat.mp3");
-  FunUpbeatBlues = minim.loadFile("Musica/FunUpbeatBlues.mp3");
-  FutureTechBackground = minim.loadFile("Musica/FutureTechBackground.mp3");
   HiphopHappy = minim.loadFile("Musica/HiphopHappy.mp3");
-  SifiElectricRising = minim.loadFile("Musica/SifiElectricRising.wav");
-  Silencio = minim.loadFile("Musica/Silencio.mp3");
-  SpaceshipTypingSound = minim.loadFile("Musica/SpaceshipTypingSound.wav");
-  SportsTrapBeat = minim.loadFile("Musica/SportsTrapBeat.mp3");
-  Therunwaygames = minim.loadFile("Musica/Therunwaygames.wav");
-  UpbeatSwing = minim.loadFile("Musica/UpbeatSwing.mp3");
-  VideoGame21 = minim.loadFile("Musica/VideoGame21.mp3");
-  VideoGame45 = minim.loadFile("Musica/VideoGame45.mp3");
   VideoGame51 = minim.loadFile("Musica/VideoGame51.mp3");
 }
 
@@ -161,13 +131,13 @@ boolean doThis = true; //esto es solo para detener la transición
 float trans = 255; //Indica el tiempo en el que durara la pantalla de bienvenida
 void draw() {
 
-  //pantalla de bienvenida
+  //Pantalla de bienvenida
   if (millis() < 10000 && trans >= 0 && doThis) {
     background(dark);
-    tint(255, trans); //esto determina la opacidad de la imagen
+    tint(255, trans); //Esto determina la opacidad de la imagen
     image(welcome, 0, 0, width, height);
     trans -= 1;
-    
+    Epic.play();
   } else {
     tint(255, 255);
     switch(ScreenId) {
@@ -195,6 +165,11 @@ void draw() {
   }
 }
 
+void mouseClicked () {
+  
+  Clic.play();
+  
+} 
 void mousePressed() {
   switch(ScreenId) {
   case 0:
@@ -248,8 +223,7 @@ void mousePressed() {
       pop1_messange = true; //y con esto se muestra el mensaje
     } else if (mouseX > 440 && mouseY > 68 && mouseX < 440 + 40 && mouseY < 68 + 40) {
       t += 0.1;
-      Clic.rewind();
-      Clic.play();
+      
       wave.append(40 + 2*150 + 150*(y/A)); 
     } 
     break;

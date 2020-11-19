@@ -1,6 +1,7 @@
 import ddf.minim.*;
 import processing.sound.*;
 Minim minim;
+
 solucion sol; 
 
 //VARIABLES RELACIONADAS A LA TOMA DE DATOS
@@ -14,23 +15,23 @@ color pink = #ff4b5c;
 color blue = #32e0c4;
 color dark = #222831;
 
-int ScreenId = 0; //indica la pantalla que se esta mostrando
-int beforeScreen = 0; //indica la pantalla anterior. se usa en el how to use (que aparece en diferentes sitio)
-int pop_time = 125; //indica cuanto dura un mesaje (se usa cuando se desargan datos)
+int ScreenId = -1; // Indica la pantalla que se esta mostrando
+int beforeScreen = 0; // Indica la pantalla anterior. se usa en el how to use (que aparece en diferentes sitio)
+int pop_time = 125; // Indica cuanto dura un mesaje (se usa cuando se desargan datos)
 
-float x0, v0, m = 1, k, b, f; //DATOS DE ENTRADA
-float w0, w, A0, A, t, y, desfase; //DATOS DE SALIDA
-float e = 2.71828; //Es una constante
-float spin = 0.5; //Indica como aumenta o disminulle los spiners en la toma de datos
+float x0, v0, m = 1, k, b, f; // DATOS DE ENTRADA
+float w0, w, A0, A, t, y, desfase; // DATOS DE SALIDA
+float e = 2.71828; // Es una constante
+float spin = 0.5; // Indica como aumenta o disminulle los spiners en la toma de datos
 
 String movimiento = new String("Tipo de movimiento");
-String path = new String("DATA"); //Indica la ruta donde se va a guardar la tabla de datos
-String extension = new String("csv"); //Indica que extensión tendra la table de datos (csv o html)
-String datos; //Indica si el usuario selecciono guardar todos los datos o solo algunos
+String path = new String("DATA"); // Indica la ruta donde se va a guardar la tabla de datos
+String extension = new String("csv"); // Indica que extensión tendra la table de datos (csv o html)
+String datos; // Indica si el usuario selecciono guardar todos los datos o solo algunos
 
-boolean music = true; //Indica si la musica debe sonar o no
-boolean can = false; //permite saltar al experimento si ya se han dijitado los datos necesarios
-boolean pop1_messange = false; //es verdadera cuando se han descargado datos
+boolean music = true; // Indica si la musica debe sonar o no
+boolean can = false; // Permite saltar al experimento si ya se han dijitado los datos necesarios
+boolean pop1_messange = false; // Es verdadera cuando se han descargado datos
 boolean play = true; /*
  *Indica si el experiemnto esta en pausa o no
  *Si es falsa el proceso de halla la solución se detendra
@@ -60,9 +61,8 @@ PImage pause;
 PImage guardar1;
 PImage guardar2;
 PImage download;
-PImage pop1;
-
-
+PImage pop;
+PImage empezar;
 
 AudioPlayer BassyEnergy;
 AudioPlayer Epic;
@@ -73,9 +73,8 @@ SoundFile Clic;
 
 void setup() {
   size(1000, 580);
-  Clic = new SoundFile(this, "Musica/Clic.mp3");
-  wave = new FloatList();
 
+  wave = new FloatList();
   wave = new FloatList();
   table = new Table();  
 
@@ -114,8 +113,10 @@ void setup() {
   guardar1 = loadImage("Imagenes/guardar1.png");
   guardar2 = loadImage("Imagenes/guardar2.png");
   download = loadImage("Imagenes/download.png");
-  pop1 = loadImage("Imagenes/pop1.png");
-
+  pop = loadImage("Imagenes/pop.png");
+  empezar = loadImage("Imagenes/EMPEZAR.png");
+  
+  Clic = new SoundFile(this, "Musica/Clic.mp3");
   minim = new Minim(this);
   
   BassyEnergy  = minim.loadFile("Musica/BassyEnergy.mp3");
@@ -127,38 +128,37 @@ void setup() {
 
 
 
-boolean doThis = true; //esto es solo para detener la transición
-float trans = 255; //Indica el tiempo en el que durara la pantalla de bienvenida
+boolean doThis = true; // Esto es solo para detener la transición
+float trans = 255; // Indica el tiempo en el que durara la pantalla de bienvenida
 void draw() {
 
-  //Pantalla de bienvenida
+  // Pantalla de bienvenida
   if (millis() < 10000 && trans >= 0 && doThis) {
     background(dark);
-    tint(255, trans); //Esto determina la opacidad de la imagen
+    tint(255, trans); // Esto determina la opacidad de la imagen
     image(welcome, 0, 0, width, height);
     trans -= 1;
     Epic.play();
   } else {
     tint(255, 255);
+    background(34, 40, 49);
     switch(ScreenId) {
+    case -1:
+      empezar();
+      break;
     case 0: 
-      background(34, 40, 49);
       inicio(); 
       break;
     case 1: 
-      background(34, 40, 49);
       processing(); 
       break;
     case 2: 
-      background(34, 40, 49);
       howToUse(); 
       break;
     case 3:
-      background(34, 40, 49);
       guardar1();
       break;
     case 4:
-      background(34, 40, 49);
       guardar2();
       break;
     }
@@ -166,19 +166,24 @@ void draw() {
 }
 
 void mouseClicked () {
-  
   Clic.play();
-  
 } 
+
+
 void mousePressed() {
   switch(ScreenId) {
+  case - 1:
+    if (mouseX > 400 && mouseY > 240 && mouseX < 400 + ancho && mouseY < 240 + largo) {
+      cambiar = true;
+    }
+    break;
   case 0:
     can = m != 0 && k != 0;
     if (mouseX > 140 && mouseY > 25 && mouseX < 140 + 40 && mouseY < 25 + 40) {
-      beforeScreen = ScreenId; //con esto se salta al how to use
+      beforeScreen = ScreenId; // Con esto se salta al how to use
       ScreenId = 2;
     } else if (mouseX > 627.6 && mouseY > 530 && mouseX < 627.6 + 127.6 && mouseY < 530 + 40 && can) {
-      ScreenId = 3; //con esto se pregunta si se quiere tomar datos
+      ScreenId = 3; // Con esto se pregunta si se quiere tomar datos
     } else if (mouseX > 180 && mouseY > 25 && mouseX < 180 + 40 && mouseY < 25 + 40) {
       music = !music; 
     } else if (mouseX > 587.6 && mouseY > 125 && mouseX < 627.6 && mouseY < 125 + 40 && m - spin > 0) {
@@ -219,8 +224,8 @@ void mousePressed() {
     } else if (mouseX > 400 && mouseY > 68 && mouseX < 400 + 40 && mouseY < 68 + 40) {
       play = !play;
     } else if (mouseX > 145 && mouseY > 5 && mouseX < 145 + 40 && mouseY < 5 + 40 && guardar) {
-      saveTable(table, path+"/"+movimiento+"."+extension, extension); //con esto se descarga la tabla
-      pop1_messange = true; //y con esto se muestra el mensaje
+      saveTable(table, path+"/"+movimiento+"."+extension, extension); // Con esto se descarga la tabla
+      pop1_messange = true; // Y con esto se muestra el mensaje
     } else if (mouseX > 440 && mouseY > 68 && mouseX < 440 + 40 && mouseY < 68 + 40) {
       t += 0.1;
       
@@ -230,7 +235,7 @@ void mousePressed() {
 
   case 2:
     if (mouseX > 380 && mouseY > 20 && mouseX < 380 + 40 && mouseY < 20 + 40) {
-      ScreenId = beforeScreen; // con esto se devuelve a la pantalla anterior
+      ScreenId = beforeScreen; // Con esto se devuelve a la pantalla anterior
     } else if (mouseX > 600 && mouseY > 30 && mouseX < 600 + 75 && mouseY < 30 + 25) {
       link("https://sites.google.com/view/el-proyectoc-cmw/home");
     }
@@ -238,13 +243,14 @@ void mousePressed() {
 
   case 3:
     if (mouseX > 300 && mouseY > 350 && mouseX < 300 + 100 && mouseY < 350 + 40) {
-      //Con esto se salta a la pantalla principla NO SE TOMAN DATOS
+      // Con esto se salta a la pantalla principla NO SE TOMAN DATOS
       t = 0; 
       wave = new FloatList();
       ScreenId = 1;
       guardar = false;
+      
     } else if (mouseX > 600 && mouseY > 350 && mouseX < 600 + 100 && mouseY < 350 + 40) {
-      //Con esto se va a preguntar por la especificaciones en la toma de datos
+      // Con esto se va a preguntar por la especificaciones en la toma de datos
       ScreenId = 4;
     }
     break;

@@ -1,4 +1,54 @@
 
+float ancho = 200;
+float largo = 100;
+float dj_trans = 255;
+boolean aumentar = true;
+boolean cambiar = false;
+void empezar() {
+  BassyEnergy.play();
+  if (cambiar && dj_trans > 0) {
+    background(dark);
+    tint(255, dj_trans);
+    VideoGame51.play();
+    dj_trans -= 1.5;
+  } else if (cambiar && dj_trans <= 0) { 
+    ScreenId = 0;
+  }
+  
+  image(empezar, 0, 0, width, height);
+  
+  if (ancho == 210) {
+    aumentar = false;
+  } else if (ancho == 200) { 
+    aumentar = true;
+  }
+
+  if (aumentar) {
+    ancho = ancho + 0.5;
+    largo = largo + 0.5;
+  } else { 
+    ancho = ancho - 0.5;
+    largo = largo - 0.5;
+  }
+  noStroke();
+  fill(pink);
+  rect(400, 240, ancho, largo, 10);
+  fill(white);
+  textAlign(CENTER, CENTER);
+  textSize(30);
+  text("EMPEZAR", 400, 240, ancho, largo);
+  /*
+  fill(white);
+   rect(350, 200, 30, 30, 30);
+   rect(450, 200, 30, 30, 30);
+   fill(dark);
+   rect(355, 200, 20, 20, 30);
+   rect(420, 200, 20, 20, 30);
+   fill(pink);
+   rect(350, 250, 250, ancho, largo);
+   */
+}
+
 void inicio() {
   can = m != 0 && k != 0;
   noStroke();
@@ -7,7 +57,8 @@ void inicio() {
 
   FunKidsupbeat.pause();
 
-  if (music) {    
+  if (music) {
+    BassyEnergy.pause();
     HiphopHappy.play();
     image(musicOn, 180, 25, 40, 40);
   } else {
@@ -98,8 +149,8 @@ void processing() {
     image(der, 400, 68, 40, 40);
   }
   image(more, 440, 68, 40, 40);
-  
-  
+
+
 
   fill(dark);
   textSize(12);
@@ -118,13 +169,16 @@ void processing() {
   fill(white);
   textSize(20);
   text(movimiento, 500, 20);
-  
+
   sol = new solucion();
   animacion();
   datos();
-  
+
   if (pop_time >= 0 && pop1_messange) {
-    image(pop1, 250, 250);
+    image(pop, 250, 250, 400, 161);
+    fill(dark);
+    textSize(30);
+    text("¡Los datos se han guadardo exitosamente!", 250, 250, 400, 161);
     pop_time -= 1;
   }
 }
@@ -177,7 +231,7 @@ void guardar2 () {
   textAlign(LEFT, CENTER);
   text("Todos", 502, 310, 300, 30);
   text(path, 502, 150, 300, 30);
-  
+
   if (extension == "html") {
     rect(582.5, 232.5, 15, 15, 10);
   } else {

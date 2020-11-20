@@ -1,6 +1,6 @@
 
 public class solucion {
-  
+
   public solucion () {
     w0 = sqrt(k/m);
     desfase = atan(-v0/(w0*x0));
@@ -81,13 +81,13 @@ void animacion () {
   textSize(12);
   text("-A", 60, 150);
   text("A", 60, 3*150);
-  
+
   //MOVIMIENTO DE LA MASA Y EL RESORTE
   image(masa, 90, 2*150 + 150*(y/A), 80, 80);
   image(resorte, 90, 100, 80, 220 + 150*(y/A));
 
   rect(140, 40.5 + 2*150 + 150*(y/A), 200, 1);
-  
+
   //GRAFICA
   if (play) 
     wave.append(40 + 2*150 + 150*(y/A));
@@ -112,18 +112,63 @@ void animacion () {
 void datos () {
   if (guardar && play) {
     //row.setString("Movimiento");
-    row = table.addRow();
-    row.setString("Movimiento", movimiento);
-    row.setDouble("Posición inicial", x0);
-    row.setDouble("Velocidad inicial", v0);
-    row.setDouble("Masa", m);
-    row.setDouble("Constante elastica", k);
-    row.setDouble("Constante de amortigüamiento", b);
-    row.setDouble("Fuerza", f);
-    row.setDouble("Velocidad angular inicial", w0);
-    row.setDouble("Velocidad angular", w);
-    row.setDouble("Amplitud", A);
-    row.setDouble("Tiempo", t);
-    row.setDouble("Posición", y);
+    row = entradas.addRow();
+
+    if (row_PosicionInicial)
+      row.setFloat("Posicion inicial", x0);
+    if (row_VelocidadInicial)
+      row.setFloat("Velocidad inicial", v0);
+    if (row_Masa)
+      row.setFloat("Masa", m);
+    if (row_ConstanteElastica)
+      row.setFloat("Constante elastica", k);
+    if (row_ConstantedeAmortiguamiento)
+      row.setFloat("Constante de amortiguamiento", b);
+    if (row_Fuerza)
+      row.setFloat("Fuerza", f);
+
+    row = salidas.addRow();
+    if (row_VelocidadAngularInicial)
+      row.setFloat("Velocidad angular inicial", w0);
+    if (row_VelocidadAngular)
+      row.setFloat("Velocidad angular", w);
+    if (row_Amplitud)
+      row.setFloat("Amplitud", A);
+    if (row_Tiempo)
+      row.setFloat("Tiempo", t);
+    if (row_Posicion)
+      row.setFloat("Posicion", y);
   }
+}
+
+void subirdatos () {
+
+  println("hi hi");
+  try {
+    entradas = loadTable(table_name, "header");
+    println("ok");
+    for (TableRow r : entradas.rows()) {
+      if (row_PosicionInicial)
+        x0 = r.getFloat("Posicion inicial");
+      if (row_VelocidadInicial)
+        v0 = r.getFloat("Velocidad inicial");
+      if (row_Masa)
+        m = r.getFloat("Masa");
+      if (row_ConstanteElastica)
+        k = r.getFloat("Constante elastica");
+      if (row_ConstantedeAmortiguamiento)
+        b = r.getFloat("Constante de amortiguamiento");
+      if (row_Fuerza)
+        f = r.getFloat("Fuerza");
+      
+    }
+  } 
+  catch (Exception  e) {
+    mensaje = "Error al cargar los datos, confirme la ruta del archivo por favor. "+e;
+    println(e);
+    hacer_pop = true; 
+    pop_time = 225;
+  }
+  subiendo = false;
+  ScreenId = 0;
 }

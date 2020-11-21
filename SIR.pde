@@ -1,20 +1,21 @@
 import ddf.minim.*;
-import processing.sound.*;
-
 Minim minim;
+
+import processing.sound.*;
 
 solucion sol; 
 
 //VARIABLES RELACIONADAS A LA TOMA DE DATOS
-boolean subiendo; // le indica a la función subirdatos que suba los datos
-boolean guardar = false; /*
- *Indica si el usuario quiere guarar los datos
- *Si es falsa todo el proceso de toma de datos se detendra
+boolean subiendo; // Le indica a la función subirdatos que suba los datos
+boolean guardar = false; 
+ /*
+ * Indica si el usuario quiere guarar los datos
+ * Si es falsa todo el proceso de toma de datos se detendra
  */
 
-TableRow row; // las filas
-Table entradas; // tabla de entradas
-Table salidas; // tabla de salidas
+TableRow row; // Las filas
+Table entradas; // Tabla de entradas
+Table salidas; // Tabla de salidas
 
 // Estas variables indican que datos quiere el usuario guardar
 boolean row_PosicionInicial = true;
@@ -61,22 +62,23 @@ String extension = new String("csv"); // Indica que extensión tendra la table d
 
 boolean music = true; // Indica si la musica debe sonar o no
 boolean can = false; // Permite saltar al experimento si ya se han dijitado los datos necesarios
-boolean play = true; /*
+boolean play = true;
+ /*
  *Indica si el experiemnto esta en pausa o no
  *Si es falsa el proceso de halla la solución se detendra
  *Si es falsa la animación se detendra
  *Si es falsa el proceso de guardar datos se detendra
  */
  
-int pop_time;
-boolean hacer_pop = false; //indica que se quiere hacer un pop
-String mensaje; 
+int pop_time; // El tiempo que dura un mensaje pop
+boolean hacer_pop = false; // Indica que se quiere hacer un mensaje pop
+String mensaje; // El pensaje que se va a mostrar en un pop
 
-PImage icon;
-PImage welcome;
-PImage scream0; 
-PImage scream1;
-PImage help;
+PImage icon; // Icono de la pantalla
+PImage welcome; // Pantalla de bienvenidad
+PImage scream0; // Toma de datos
+PImage scream1; // Porceso (animación - graficas)
+PImage help; 
 PImage izq;
 PImage der;
 PImage help_buttom;
@@ -87,7 +89,7 @@ PImage resorte;
 PImage more;
 PImage less;
 PImage pause;
-PImage guardar1;
+PImage guardar1; // Pantalla de guardar 1
 PImage guardar2;
 PImage guardar3;
 PImage download;
@@ -95,6 +97,8 @@ PImage pop;
 PImage empezar;
 PImage subir;
 PImage subir_pantalla;
+
+FloatList wave; // Esta lista guardara las posiciones de la grafica
 
 AudioPlayer BassyEnergy;
 AudioPlayer Epic;
@@ -105,8 +109,8 @@ SoundFile Clic;
 
 void setup() {
   size(1000, 580);
-
-  wave = new FloatList();
+  
+  wave = new FloatList(); 
   entradas = new Table();
   salidas = new Table();
 
@@ -173,7 +177,8 @@ void draw() {
       inicio(); 
       break;
     case 1: 
-      processing(); 
+      processing();
+      println(t +"    "+y);
       break;
     case 2: 
       howToUse(); 
@@ -198,7 +203,6 @@ void draw() {
 void mouseClicked () {
   Clic.play(); // sonido que se escuchara a hacer click en cualquier sitio de la pantalla
 } 
-
 
 void mousePressed() {
   switch(ScreenId) {
@@ -277,7 +281,7 @@ void mousePressed() {
     if (mouseX > 300 && mouseY > 350 && mouseX < 300 + 100 && mouseY < 350 + 40) {
       // Con esto se salta a la pantalla principla NO SE TOMAN DATOS
       t = 0; 
-      wave = new FloatList();
+      wave = new FloatList(); 
       ScreenId = 1;
       guardar = false;
     } else if (mouseX > 600 && mouseY > 350 && mouseX < 600 + 100 && mouseY < 350 + 40) {
@@ -300,7 +304,9 @@ void mousePressed() {
       ScreenId = 5;
     } else if (mouseX > 600 && mouseY > 380 && mouseX < 600 + 100 && mouseY < 380 + 40) {
       t = 0;
-      wave = new FloatList();
+      wave = new FloatList(); 
+      entradas = new Table();
+      salidas = new Table();
       guardar = true;
       if (row_PosicionInicial)
         entradas.addColumn("Posicion inicial");

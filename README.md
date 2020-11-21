@@ -11,9 +11,9 @@ _Simulador Interactivo de Resorte_ Este proyecto desarrolla en processing un sim
 
 * void inicio(): En esta pantalla se realiza la toma de datos. Esta consiste de varias imagenes, una de fondo y los botones (de musica, ayuda, aumentar y disminuir). Hay una zona reservada para la entrada de datos (por medio de spiner y de esta forma evitar la validación). Una vez que los datos de entrada sean suficientes la variable can se hara verdadera y permitira al usuario continuar por medio del boton "empezar"
 
-* void howToUse(): **NO TERMINADO**
+* void howToUse(): En esta pantalla se muestra el manual de usuario en el cual se enseña como funciona la aplicacion y un tambien una opcion qque dirije a la pagian web del proyecto
 
-* void processing(): **NO TERMINADO**
+* void processing(): 
 
 * Estructura de las zonas activas 
 ```

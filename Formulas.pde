@@ -58,7 +58,7 @@ public class solucion {
       A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2));
     } else {
       movimiento = "Movimiento Criticamente Amortiguado forzado";
-      w = sqrt((k/m)-pow(b, 2)/pow(4*m, 2));
+      w = sqrt((k/m));
       A = (f/m)/sqrt(pow(pow(w, 2)-pow(w0, 2), 2)+pow(b*w/m, 2));
     }
 

@@ -49,7 +49,7 @@ int ScreenId = 0;
  * 6 : subir() - se obtienen los datos de entrada desde un html o un CSV
  */
 int beforeScreen = 0; // Indica la pantalla anterior. se usa en el how to use (que aparece en diferentes sitio)
-
+int man=1;//controla el manual del usuario
 float x0, v0, m = 1, k, b, f; // DATOS DE ENTRADA
 float w0, w, A0, A, t, y, desfase; // DATOS DE SALIDA
 float e = 2.71828; // Es una constante
@@ -97,6 +97,14 @@ PImage pop;
 PImage empezar;
 PImage subir;
 PImage subir_pantalla;
+PImage manual1;
+PImage manual2;
+PImage manual3;
+PImage manual4;
+PImage manual5;
+PImage manual6;
+PImage manual7;
+PImage manual8;
 
 FloatList wave; // Esta lista guardara las posiciones de la grafica
 
@@ -140,6 +148,14 @@ void setup() {
   empezar = loadImage("Imagenes/EMPEZAR.png");
   subir = loadImage("Imagenes/subir.png");
   subir_pantalla = loadImage("Imagenes/subir_pantalla.png");
+   manual1 = loadImage("Imagenes/manual1.png");
+  manual2 = loadImage("Imagenes/manual2.png");
+  manual3 = loadImage("Imagenes/manual3.png");
+  manual4 = loadImage("Imagenes/manual4.png");
+  manual5 = loadImage("Imagenes/manual5.png");
+  manual6 = loadImage("Imagenes/manual6.png");
+  manual7 = loadImage("Imagenes/manual7.png");
+  manual8 = loadImage("Imagenes/manual8.png");
 
   Clic = new SoundFile(this, "Musica/Clic.mp3");
   minim = new Minim(this);
@@ -274,8 +290,11 @@ void mousePressed() {
       ScreenId = beforeScreen; // Con esto se devuelve a la pantalla anterior
     } else if (mouseX > 600 && mouseY > 30 && mouseX < 600 + 75 && mouseY < 30 + 25) {
       link("https://sites.google.com/view/el-proyectoc-cmw/home");
-    }
-    break;
+    }else if((mouseX>889)&&(mouseY>269)&&(mouseX<931)&&(mouseY<310)&&(man>0)&&(man<8)){
+       man=man+1;
+    }else if((mouseX>69)&&(mouseY>269)&&(mouseX<110)&&(mouseY<310)&&(man>1)&&(man<9)){
+       man=man-1;
+    } break;
 
   case 3:
     if (mouseX > 300 && mouseY > 350 && mouseX < 300 + 100 && mouseY < 350 + 40) {

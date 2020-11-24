@@ -175,15 +175,48 @@ void processing() {
 }
 
 void howToUse() {
-  image(help, 0, 0, 1000, 580); // boton de ayuda
-  image(izq, 380, 20, 40, 40); // boton de volver
-
+  image(help, 0, 0, 1000, 580);
+  image(izq, 380, 20, 40, 40);
+  if(man!=1){
+    image(izq, 70, 270, 40, 40);
+  }
+  if(man!=8){
+    image(der, 890, 270, 40, 40);
+  }
   fill(pink);
   rect(600, 30, 75, 25, 7); //Este corresponde al boton de ir al sitio web
   fill(white);
   textAlign(CENTER, CENTER);
   text("Sitio web", 600, 25, 75, 25);
+ 
+   switch(man) {
+    case 1:
+      image(manual1, 120, 90, 765, 400);
+      break;
+    case 2: 
+      image(manual2, 120, 90, 765, 400);
+      break;
+    case 3: 
+     image(manual3, 120, 90, 765, 400);
+      break;
+    case 4: 
+     image(manual4, 120, 90, 765, 400);
+      break;
+    case 5:
+      image(manual5, 120, 90, 765, 400);
+      break;
+    case 6:
+      image(manual6, 120, 90, 765, 400);
+      break;
+    case 7:
+      image(manual7, 120, 90, 765, 400);
+      break;
+    case 8:
+      image(manual8, 120, 90, 765, 400);
+      break;
+    }
 }
+
 
 void guardar1 () {
   image(guardar1, 0, 0, width, height);

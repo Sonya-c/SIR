@@ -56,27 +56,67 @@ if (mouseX > x && mouseY > y && mouseX < x + w && mouseY < y + h) {
 **_x_** y **_y_** son el punto de partida de la imagen o figura dibujada y **_w_** y **_h_** son el ancho y largo, respectivamente. La estructura de las zonas activas se escribe dentro de una función como una estrutura de condicional multiples. Estos condicionales *no* se pueden escribir por separado, si se escriben separados (es decir, no anidados) el cursos empezara a parpadear. 
 
 ## SOLUCIÓN DEL PROBLEMA
-Para solucionar el problema físico, se implementaron diferentes formulas y diferentes espacios de aplicación, dando la siguiente estructura algorítmica:
+* Para solucionar el problema físico, se implementaron diferentes formulas y diferentes espacios de aplicación, dando la siguiente estructura algorítmica:
                                       w0 = sqrt(k/m) // Velocidad angular inicial
                                  desfase = atan(-v0/ (w0 * x0) ) // Angulo de desfase
 
-Movimiento Armónico Simple (b == 0) Es un movimiento de condiciones ideales donde solo influyen las condiciones iniciales de la masa, la constante elástica, la posición inicial y la velocidad inicial.
+* Movimiento Armónico Simple (b == 0) Es un movimiento de condiciones ideales donde solo influyen las condiciones iniciales de la masa, la constante elástica, la posición inicial y la velocidad inicial.
 ```
 w = w0; // es este tipo de movimiento la velocidad angular coincide con la inicial
 A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2)); // La amplitud, es la maxima elongación
 y = A*cos(w*t + desfase); // La posición, esta varia según el tiempo 
 
 ```
-En los movimientos amortiguados aparecen nuevas variables. b es la constante de amortiguamiento y f es la fuerza.
+* En los movimientos amortiguados aparecen nuevas variables. b es la constante de amortiguamiento y f es la fuerza.
 Movimiento Subamortiguado (b < 2*m*w0)
 Normal (b == 0)
 
 ```
  w = sqrt(k/m - pow(b, 2)/(4*pow(m, 2)));
  A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2));
+ y = A*pow(e, -b/(2*m)*t)*cos(w*t + desfase);
+```
+* Forzado  (b != 0)
+```
+w = sqrt((k/m)-pow(b, 2)/pow(4*m, 2));
+A = (f/m)/sqrt(pow(pow(w, 2)-pow(w0, 2), 2)+pow(b*w/m, 2));
+y = A*pow(e, -b/(2*m)*t)*cos(w*t + desfase);
 
 ```
+* Movimiento Críticamente Amortiguado (b == 2*m*w0)
+** Normal
+```
+w = sqrt(k/m - pow(b, 2)/(4*pow(m, 2)));
+A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2));
+y = A*pow(e, -b/(2*m)*t)*cos(w*t + desfase);
 
+```
+** Forzado  
+```
+w = sqrt((k/m)-pow(b, 2)/pow(4*m, 2));
+A = (f/m)/sqrt(pow(pow(w, 2)-pow(w0, 2), 2)+pow(b*w/m, 2));
+y = A*pow(e, -b/(2*m)*t)*cos(w*t + desfase);
+
+```
+* Movimiento Sobreamortiguado (b > 2*m*w0)
+** Normal
+```
+w = w0;
+A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2));
+l1 = ( -b / (2*m)) + sqrt(pow(b/(2*m), 2) - (k/m));
+l2 = ( -b / (2*m)) - sqrt(pow(b/(2*m), 2) - (k/m));
+y = c1*pow(e, l1 * t) + c2*pow(e, l2 * t);
+
+```
+** Forzado  
+```
+w = sqrt((k/m));
+A = (f/m)/sqrt(pow(pow(w, 2)-pow(w0, 2), 2)+pow(b*w/m, 2));
+l1 = ( -b / (2*m)) + sqrt(pow(b/(2*m), 2) - (k/m));
+l2 = ( -b / (2*m)) - sqrt(pow(b/(2*m), 2) - (k/m));
+y = c1*pow(e, l1 * t) + c2*pow(e, l2 * t);
+
+```
 ## Diccionario de variables 
 Variable(s) | Tipo | Definición
 ------------ | ------------- | -------------

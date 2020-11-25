@@ -84,14 +84,15 @@ y = A*pow(e, -b/(2*m)*t)*cos(w*t + desfase);
 
 ```
 * Movimiento Críticamente Amortiguado (b == 2*m*w0)
-** Normal
+
+ Normal
 ```
 w = sqrt(k/m - pow(b, 2)/(4*pow(m, 2)));
 A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2));
 y = A*pow(e, -b/(2*m)*t)*cos(w*t + desfase);
 
 ```
-** Forzado  
+Forzado  
 ```
 w = sqrt((k/m)-pow(b, 2)/pow(4*m, 2));
 A = (f/m)/sqrt(pow(pow(w, 2)-pow(w0, 2), 2)+pow(b*w/m, 2));
@@ -99,7 +100,8 @@ y = A*pow(e, -b/(2*m)*t)*cos(w*t + desfase);
 
 ```
 * Movimiento Sobreamortiguado (b > 2*m*w0)
-** Normal
+
+ Normal
 ```
 w = w0;
 A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2));
@@ -108,7 +110,7 @@ l2 = ( -b / (2*m)) - sqrt(pow(b/(2*m), 2) - (k/m));
 y = c1*pow(e, l1 * t) + c2*pow(e, l2 * t);
 
 ```
-** Forzado  
+Forzado  
 ```
 w = sqrt((k/m));
 A = (f/m)/sqrt(pow(pow(w, 2)-pow(w0, 2), 2)+pow(b*w/m, 2));
@@ -117,6 +119,7 @@ l2 = ( -b / (2*m)) - sqrt(pow(b/(2*m), 2) - (k/m));
 y = c1*pow(e, l1 * t) + c2*pow(e, l2 * t);
 
 ```
+
 ## Diccionario de variables 
 Variable(s) | Tipo | Definición
 ------------ | ------------- | -------------

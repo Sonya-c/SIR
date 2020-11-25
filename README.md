@@ -7,13 +7,38 @@ _Simulador Interactivo de Resorte_ Este proyecto desarrolla en processing un sim
 
 * void draw(): Al momento de inicar el programa se mostrara el logo del projecto, que se desvanecera poco a poco hasta mostrar la pantalla principal (screenId = 0). Usando un switch y la variable ScreenId se puede coordinar que pantalla se va a mostrar.  
 
+* void mousePressed(): Es este se establece que sucederá según el lugar donde presionemos en la pantalla y en las pestañas del programa(Interfaz, howToUse, pantalla de bienvenida) usando switch con la variable ScreenId y condicionales dentro de los casos del switch se controlara lo que sucede en programa según donde presionemos 
+```
+void mousePressed() {
+  
+  switch(ScreenId) {
+         case 0 :
+                      if ( ) {
+                           }
+                      break;
+         case 1 :
+                      if ( ) {
+                           }
+                      break;
+         case 2 :
+                       if ( ) {
+                           }
+                     break;
+}
+
+```
 ## INTERFAZ DE USUARIO
 
-* void inicio(): En esta pantalla se realiza la toma de datos. Esta consiste de varias imagenes, una de fondo y los botones (de musica, ayuda, aumentar y disminuir). Hay una zona reservada para la entrada de datos (por medio de spiner y de esta forma evitar la validación). Una vez que los datos de entrada sean suficientes la variable can se hara verdadera y permitira al usuario continuar por medio del boton "empezar"
+* Como se había mencionado anteriormente, dependiendo del valor que tome ScreenId se mostrara una alguna de las siguiente pantallas:
+  -1: llama la función empezar() donde unicamente se encuentra musica de fondo y el botón empezar.
+   0: llama a la función inicio() donde se realiza la toma de datos.
+   1: llama a la función processing () donde se muestra la animación.
+   2: llama a la función HowToUse() donde esta el manual de usuario y el link al sitio web.
+   3: llama a la función guardar1() - se pregunta al usuario si quiere guardar los datos.
+   4: llama a la función guardar2() - se pregunta por la ruta y el tipo de archivo donde quiere guardar los datos.
+   5: llama a la función guardar3() - se pregunta cuales datos quiere guardar.
+   6: llama a la función subir() - se obtienen los datos de entrada desde un CSV.
 
-* void howToUse(): En esta pantalla se muestra el manual de usuario en el cual se enseña como funciona la aplicacion y un tambien una opcion qque dirije a la pagian web del proyecto
-
-* void processing(): 
 
 * Estructura de las zonas activas 
 ```
@@ -31,7 +56,26 @@ if (mouseX > x && mouseY > y && mouseX < x + w && mouseY < y + h) {
 **_x_** y **_y_** son el punto de partida de la imagen o figura dibujada y **_w_** y **_h_** son el ancho y largo, respectivamente. La estructura de las zonas activas se escribe dentro de una función como una estrutura de condicional multiples. Estos condicionales *no* se pueden escribir por separado, si se escriben separados (es decir, no anidados) el cursos empezara a parpadear. 
 
 ## SOLUCIÓN DEL PROBLEMA
-* clase solucion: La clase solución es la que se encarga de verificar el tipo de movimiento y hallar los valores de las incognitas. Para ello, utiliza metodos privados, cada uno resuelve un movimiento diferentes esto es mas por practicidad (hace mas facil depurar y correjir el codigo) que por eficiencia. 
+Para solucionar el problema físico, se implementaron diferentes formulas y diferentes espacios de aplicación, dando la siguiente estructura algorítmica:
+                                      w0 = sqrt(k/m) // Velocidad angular inicial
+                                 desfase = atan(-v0/ (w0 * x0) ) // Angulo de desfase
+
+Movimiento Armónico Simple (b == 0) Es un movimiento de condiciones ideales donde solo influyen las condiciones iniciales de la masa, la constante elástica, la posición inicial y la velocidad inicial.
+```
+w = w0; // es este tipo de movimiento la velocidad angular coincide con la inicial
+A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2)); // La amplitud, es la maxima elongación
+y = A*cos(w*t + desfase); // La posición, esta varia según el tiempo 
+
+```
+En los movimientos amortiguados aparecen nuevas variables. b es la constante de amortiguamiento y f es la fuerza.
+Movimiento Subamortiguado (b < 2*m*w0)
+Normal (b == 0)
+
+```
+ w = sqrt(k/m - pow(b, 2)/(4*pow(m, 2)));
+ A = sqrt(pow(x0, 2)+ pow(v0, 2)/pow(w0, 2));
+
+```
 
 ## Diccionario de variables 
 Variable(s) | Tipo | Definición
